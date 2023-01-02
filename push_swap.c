@@ -6,66 +6,60 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 18:09:51 by mstiedl           #+#    #+#             */
-/*   Updated: 2022/12/30 17:52:01 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/02 19:59:13 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
 void	ft_make_list(char **av, t_list **head)
 {
-	int i;
-	t_list *node;
-	
+	int		i;
+	t_list	*node;
+
 	i = 0;
-	while (av[i])
+	while (av[++i])
 	{
 		node = (t_list *)malloc(sizeof(t_list));
 		if (!node)
 			return ;
-		node->content = ft_atoi(av[i++]);
+		node->content = ft_atoi(av[i]);
 		node->next = NULL;
-		ft_lstadd_front(head, node);
+		ft_lstadd_back(head, node);
 	}
 }
 
-/* int	ft_checker(char *str)
+int	ft_print_stack(t_list *stack_a, t_list *stack_b)
 {
-	int	i;
-	
-	i = 0;
-	while (str[i])
-	{
-		if (!(str[i] < 48 || str[i] > 57 || str[i] != '-' && str[i] != '+'))
-			i++;
-		else
-		{
-			ft_printf("Error");
-			return (0);
-		}	
-	}	
-} */
-
-int	ft_print_stack(t_list *list)
-{
-	if (!list)
+	if (!stack_a)
 		return (0);
-	ft_printf("---------\nstacks:\n---------\n");
-	while (list->next != NULL)
+	ft_printf("---------\nstack a:\n---------\n");
+	while (stack_a->next != NULL)
 	{
-		ft_printf("%i\n", list->content);
-		list = list->next;
+		ft_printf("%i\n", stack_a->content);
+		stack_a = stack_a->next;
 	}
-	ft_printf("---------\na b\n");
+	ft_printf("%i\n", stack_a->content);
+	ft_printf("---------\n");
+	if (!stack_b)
+		return (0);
+	ft_printf("---------\nstack b:\n---------\n");
+	while (stack_b->next != NULL)
+	{
+		ft_printf("%i\n", stack_b->content);
+		stack_b = stack_b->next;
+	}
+	ft_printf("%i\n", stack_b->content);
+	ft_printf("---------\n");
 	return (1);
 }
 
 void	free_list(t_list *lst, int error)
 {
-	t_list *temp;
+	t_list	*temp;
+
 	if (error == 1)
-		ft_printf("Error");
+		write(2, "Error\n", 6);
 	while (lst != NULL)
 	{
 		temp = lst;
@@ -74,7 +68,27 @@ void	free_list(t_list *lst, int error)
 	}
 }
 
-int main(int ac, char **av)
+int	ft_compare(t_list *list)
+{
+	int		compare;
+	t_list	*temp;
+
+	while (list->next != NULL)
+	{
+		compare = list->content;
+		list = list->next;
+		temp = list;
+		while (temp->next != NULL)
+		{
+			if (compare == temp->content)
+				return (0);
+			temp = temp->next;
+		}	
+	}
+	return (1);
+}
+
+int	main(int ac, char **av)
 {
 	t_list *stack_a;
 	t_list *stack_b;
@@ -82,14 +96,27 @@ int main(int ac, char **av)
 	stack_a = NULL;
 	stack_b = NULL;
 	if (ac > 1)
-		//if (ft_checker(av) != 0)
+		if (check_args(av) != 0)
+		{
 			ft_make_list(av, &stack_a);
+			if (ft_compare(stack_a) == 0)
+			{
+				free_list(stack_a, 1);
+				return (0);
+			}
+		}
+	//ft_push(&stack_a, &stack_b, 3);	
+	//ft_push(&stack_a, &stack_b, 4);
+	//swap(stack_a, stack_b, 0);
 	/* while (ft_checksort(list) = 0)
 	{
 		ft_check_list();
 		ft_apply_change();
 	} */
-	ft_print_stack(stack_a);
+	//ft_printf("%i\n", ft_lstsize(stack_a));
+	ft_print_stack(stack_a, stack_b);
+	checker(stack_a);
 	free_list(stack_a, 0);
+	free_list(stack_b, 0);
 	return (0);
 }
