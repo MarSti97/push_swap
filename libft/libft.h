@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:16:08 by mstiedl           #+#    #+#             */
-/*   Updated: 2022/12/30 14:49:08 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/03 14:28:29 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,20 @@ int	ft_printf(const char *input, ...);
 // Bonus
 typedef struct s_list
 {
-	int			content;
+	int				content;
+	struct s_list	*prev;
 	struct s_list	*next;
 
 }					t_list;
 
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(int content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	ft_lstdelone(t_list *lst, void (*del)(int));
+void	ft_lstclear(t_list **lst, void (*del)(int));
+void	ft_lstiter(t_list *lst, void (*f)(int));
+t_list	*ft_lstmap(t_list *lst, int (*f)(int), void (*del)(int));
 
 #endif 

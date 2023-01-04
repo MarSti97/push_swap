@@ -6,11 +6,11 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/02 17:56:23 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/04 13:31:42 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 int	checker(t_list *stack)
 {
@@ -28,13 +28,13 @@ int	checker(t_list *stack)
 				return (0);
 			if (toComp > temp->content)
 			{
-				ft_printf("Wrong Order!");
+				ft_printf("Wrong Order!\n");
 				return (0);
 			}	
 			temp = temp->next;
 		}		
 	}
-	ft_printf("OK");
+	ft_printf("OK\n");
 	return (1);
 }
 

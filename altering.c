@@ -6,11 +6,11 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:48:23 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/02 19:58:21 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/04 18:53:13 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 void	make_swap(t_list *list)
 {
@@ -50,10 +50,19 @@ void	ft_push(t_list **from, t_list **to, int arg)
 	t_list	*temp;
 	
 	temp = *from;
-	*from = (*from)->next;
-	ft_lstadd_front(to, temp);
+	if (temp->next != NULL)
+	{
+		*from = (*from)->next;
+		(*from)->prev = NULL;
+		ft_listadd_front(to, temp);
+	}
+	else
+	{
+		ft_listadd_front(to, temp);
+		*from = NULL;
+	}
 	if (arg == 3)
-		ft_printf("pa");
+		ft_printf("pa\n");
 	if (arg == 4)
-		ft_printf("pb");
+		ft_printf("pb\n");
 }

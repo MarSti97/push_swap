@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 18:09:51 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/02 19:59:13 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/04 19:52:02 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,9 @@ void	ft_make_list(char **av, t_list **head)
 			return ;
 		node->content = ft_atoi(av[i]);
 		node->next = NULL;
-		ft_lstadd_back(head, node);
+		node->prev = NULL;
+		ft_listadd_back(head, node);
 	}
-}
-
-int	ft_print_stack(t_list *stack_a, t_list *stack_b)
-{
-	if (!stack_a)
-		return (0);
-	ft_printf("---------\nstack a:\n---------\n");
-	while (stack_a->next != NULL)
-	{
-		ft_printf("%i\n", stack_a->content);
-		stack_a = stack_a->next;
-	}
-	ft_printf("%i\n", stack_a->content);
-	ft_printf("---------\n");
-	if (!stack_b)
-		return (0);
-	ft_printf("---------\nstack b:\n---------\n");
-	while (stack_b->next != NULL)
-	{
-		ft_printf("%i\n", stack_b->content);
-		stack_b = stack_b->next;
-	}
-	ft_printf("%i\n", stack_b->content);
-	ft_printf("---------\n");
-	return (1);
 }
 
 void	free_list(t_list *lst, int error)
@@ -73,18 +49,45 @@ int	ft_compare(t_list *list)
 	int		compare;
 	t_list	*temp;
 
-	while (list->next != NULL)
+	while (list->next)
 	{
 		compare = list->content;
 		list = list->next;
 		temp = list;
-		while (temp->next != NULL)
+		while (temp->next)
 		{
 			if (compare == temp->content)
 				return (0);
 			temp = temp->next;
-		}	
+		}
+		if (compare == temp->content)
+				return (0);
 	}
+	return (1);
+}
+
+int	ft_print_stack(t_list *stack_a, t_list *stack_b)
+{
+	if (!stack_a)
+		return (0);
+	ft_printf("---------\nstack a:\n---------\n");
+	while (stack_a->next)
+	{
+		ft_printf("%i\n", stack_a->content);
+		stack_a = stack_a->next;
+	}
+	ft_printf("%i\n", stack_a->content);
+	ft_printf("---------\n");
+	if (!stack_b)
+		return (0);
+	ft_printf("---------\nstack b:\n---------\n");
+	while (stack_b->next)
+	{
+		ft_printf("%i\n", stack_b->content);
+		stack_b = stack_b->next;
+	}
+	ft_printf("%i\n", stack_b->content);
+	ft_printf("---------\n");
 	return (1);
 }
 
@@ -96,18 +99,32 @@ int	main(int ac, char **av)
 	stack_a = NULL;
 	stack_b = NULL;
 	if (ac > 1)
+	{	
 		if (check_args(av) != 0)
 		{
 			ft_make_list(av, &stack_a);
+			// link_prev(stack_a);
 			if (ft_compare(stack_a) == 0)
 			{
 				free_list(stack_a, 1);
 				return (0);
 			}
 		}
-	//ft_push(&stack_a, &stack_b, 3);	
-	//ft_push(&stack_a, &stack_b, 4);
-	//swap(stack_a, stack_b, 0);
+		else 
+			return (0);
+	}
+	ft_push(&stack_a, &stack_b, 3);	
+	// ft_swap(stack_a, stack_b, 0);
+	ft_push(&stack_a, &stack_b, 3);
+	// ft_push(&stack_b, &stack_a, 4);
+	// ft_push(&stack_b, &stack_a, 4);
+	// test_prev(stack_b);
+	// ft_swap(stack_a, stack_b, 0);
+	//rotate_what(&stack_a, &stack_b, 5);
+	ft_rotate(&stack_a, &stack_b, 10);
+	// ft_rotate(&stack_a, &stack_b, 8);
+	// ft_rotate(&stack_a, &stack_b, 5);
+	// ft_rotate(&stack_a, &stack_b, 5);
 	/* while (ft_checksort(list) = 0)
 	{
 		ft_check_list();
