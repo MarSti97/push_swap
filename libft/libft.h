@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:16:08 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/03 14:28:29 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/05 13:09:45 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	ft_printf(const char *input, ...);
 typedef struct s_list
 {
 	int				content;
+	int				pos;
 	struct s_list	*prev;
 	struct s_list	*next;
 

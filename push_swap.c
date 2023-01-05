@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 18:09:51 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/04 19:52:02 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:46:55 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ int	ft_print_stack(t_list *stack_a, t_list *stack_b)
 	ft_printf("---------\nstack a:\n---------\n");
 	while (stack_a->next)
 	{
-		ft_printf("%i\n", stack_a->content);
+		ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
 		stack_a = stack_a->next;
 	}
-	ft_printf("%i\n", stack_a->content);
+	ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
 	ft_printf("---------\n");
+	ft_printf("stack\tposition\n");
 	if (!stack_b)
 		return (0);
 	ft_printf("---------\nstack b:\n---------\n");
@@ -103,7 +104,6 @@ int	main(int ac, char **av)
 		if (check_args(av) != 0)
 		{
 			ft_make_list(av, &stack_a);
-			// link_prev(stack_a);
 			if (ft_compare(stack_a) == 0)
 			{
 				free_list(stack_a, 1);
@@ -112,16 +112,17 @@ int	main(int ac, char **av)
 		}
 		else 
 			return (0);
+		give_position(stack_a);
 	}
-	ft_push(&stack_a, &stack_b, 3);	
+	//ft_push(&stack_a, &stack_b, 3);	
 	// ft_swap(stack_a, stack_b, 0);
-	ft_push(&stack_a, &stack_b, 3);
+	//ft_push(&stack_a, &stack_b, 3);
 	// ft_push(&stack_b, &stack_a, 4);
 	// ft_push(&stack_b, &stack_a, 4);
 	// test_prev(stack_b);
 	// ft_swap(stack_a, stack_b, 0);
 	//rotate_what(&stack_a, &stack_b, 5);
-	ft_rotate(&stack_a, &stack_b, 10);
+	//ft_rotate(&stack_a, &stack_b, 10);
 	// ft_rotate(&stack_a, &stack_b, 8);
 	// ft_rotate(&stack_a, &stack_b, 5);
 	// ft_rotate(&stack_a, &stack_b, 5);
@@ -130,9 +131,9 @@ int	main(int ac, char **av)
 		ft_check_list();
 		ft_apply_change();
 	} */
-	//ft_printf("%i\n", ft_lstsize(stack_a));
+	// ft_printf("%i\n", ft_lstsize(stack_a));
 	ft_print_stack(stack_a, stack_b);
-	checker(stack_a);
+	check_order(stack_a, 1);
 	free_list(stack_a, 0);
 	free_list(stack_b, 0);
 	return (0);

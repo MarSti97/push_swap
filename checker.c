@@ -6,36 +6,31 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/04 13:31:42 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:42:20 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	checker(t_list *stack)
+int	check_order(t_list *stack, int arg)
 {
-	int toComp;
-	t_list *temp;
+	int	i;
 	
-	while (stack->next != NULL)
+	i = 0;
+	while (stack->next)
 	{
-		toComp = stack->content;
-		stack = stack->next;
-		temp = stack;
-		while (temp->next != NULL)
+		if (stack->content > stack->next->content)
 		{
-			if (toComp == temp->content)
-				return (0);
-			if (toComp > temp->content)
-			{
+			if (arg == 1)
 				ft_printf("Wrong Order!\n");
-				return (0);
-			}	
-			temp = temp->next;
-		}		
-	}
-	ft_printf("OK\n");
-	return (1);
+			return (i + 1);
+		}
+		i++;
+		stack = stack->next;
+	}		
+	if (arg == 1)
+		ft_printf("OK\n");
+	return (0);
 }
 
 int	check_args(char **av)
