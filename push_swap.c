@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 18:09:51 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/05 17:46:55 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/06 12:53:30 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	main(int ac, char **av)
 {
 	t_list *stack_a;
 	t_list *stack_b;
+	// int 	len;
 	
 	stack_a = NULL;
 	stack_b = NULL;
@@ -114,24 +115,12 @@ int	main(int ac, char **av)
 			return (0);
 		give_position(stack_a);
 	}
-	//ft_push(&stack_a, &stack_b, 3);	
-	// ft_swap(stack_a, stack_b, 0);
-	//ft_push(&stack_a, &stack_b, 3);
-	// ft_push(&stack_b, &stack_a, 4);
-	// ft_push(&stack_b, &stack_a, 4);
-	// test_prev(stack_b);
-	// ft_swap(stack_a, stack_b, 0);
-	//rotate_what(&stack_a, &stack_b, 5);
-	//ft_rotate(&stack_a, &stack_b, 10);
-	// ft_rotate(&stack_a, &stack_b, 8);
-	// ft_rotate(&stack_a, &stack_b, 5);
-	// ft_rotate(&stack_a, &stack_b, 5);
-	/* while (ft_checksort(list) = 0)
-	{
-		ft_check_list();
-		ft_apply_change();
-	} */
+	sort(&stack_a, &stack_b);
+	//ft_rotate(&stack_a, &stack_b, 8);
 	// ft_printf("%i\n", ft_lstsize(stack_a));
+	/* len = ft_lstsize(stack_a);
+	ft_printf("stack size: %i\n", len);
+	ft_printf("stack half-size: %i\n", (len / 2)); */
 	ft_print_stack(stack_a, stack_b);
 	check_order(stack_a, 1);
 	free_list(stack_a, 0);

@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:48:23 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/04 18:53:13 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/06 11:49:53 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ void	make_swap(t_list *list)
 {
 	t_list	*temp;
 	int		temp_cont;
+	int		temp_pos;
 	
 		temp = list;
 		temp_cont = list->content;
+		temp_pos = list->pos;
 		temp = temp->next;
 		list->content = temp->content;
+		list->pos = temp->pos;
 		list = list->next;
 		list->content = temp_cont;
+		list->pos = temp_pos;
 }
 
 void	ft_swap(t_list *stack_a, t_list *stack_b, int arg)

@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/05 17:47:04 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/06 11:26:16 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg);
 void	make_rev_rot(t_list **stack, int arg);
 void	ft_listadd_back(t_list **lst, t_list *new);
 void	ft_listadd_front(t_list **lst, t_list *new);
-void	sort(t_list *stack_a, t_list *stack_b);
+void	sort(t_list **stack_a, t_list **stack_b);
 void	give_position(t_list *list);
 
 #endif

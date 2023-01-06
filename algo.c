@@ -6,71 +6,115 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:54:01 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/05 18:59:37 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/06 20:05:08 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	give_position(t_list *list)
+void check_stack_a(t_list **stack_a, t_list **stack_b, int len, int order)
 {
-	t_list	*next_node;
-	t_list	*prev_node;
-	int		size;
+	t_list	*last;
+	
+	last = ft_lstlast(*stack_a);
+	if (((*stack_a)->next->pos - (*stack_a)->pos) == -1)
+		ft_swap(*stack_a, *stack_b, 0);
+	if (len <= 3 && order < 3)
+		if (last->pos - (*stack_a)->pos == -1 || last->pos - (*stack_a)->pos == 1 || order == 0)
+			ft_rotate(stack_a, stack_b, 8);
+	if (len > 3 && order < 3)
+	{
+		if ((*stack_a)->pos - last->pos == 1)
+			ft_rotate(stack_a, stack_b, 5);
+		else 
+		// if ((*stack_a)->pos - (*stack_a)->next->pos != -1 || last->pos - (*stack_a)->pos != 1)
+			ft_push(stack_a, stack_b, 4);
+	}
+	/* 	if (stack_a->next->pos - stack_a->pos > 0)
+			if (stack_a->next->pos - stack_a->next->next->pos == -1)
+			{
+				ft_push(stack_a, stack_b, 4);
+				check_stack_a(stack_a, stack_b, len);
+				ft_push(stack_b, stack_a, 3);
+			} */			
+}
 
-	size = ft_lstsize(list);
-	while (size--)
-	{		
-		next_node = list;
-		prev_node = list;
-		list->pos = 1;
-		while (next_node->next)
+void	clear_back(t_list **stack_a, t_list **stack_b, int order)
+{
+	t_list	*last;
+	
+	last = ft_lstlast(*stack_a);
+	if (order == 0)
+	{
+		ft_rotate(stack_a, stack_b, 8);
+		return ;
+	}	
+	while (last->pos - last->prev->pos == -1)
+	{
+		ft_rotate(stack_a, stack_b, 8);
+		last = ft_lstlast(*stack_a);
+	}
+	ft_rotate(stack_a, stack_b, 8);
+}
+
+void	check_b(t_list **stack_a, t_list **stack_b)
+{
+	if (*stack_b)
+	{
+		if ((*stack_a)->pos - (*stack_b)->pos == 1 || (*stack_a)->pos - (*stack_b)->pos == -1)
+			ft_push(stack_b, stack_a, 3);
+		// if (can swap)
+		// if (can rotate)
+		// if (can rev_rot)	
+	/* 	else if(last->pos - (*stack_a)->pos == 1)
+			ft_rotate(stack_a, stack_b, 8);
+		else
 		{
-			next_node = next_node->next;
-			if (next_node->content < list->content)
-				list->pos += 1;
-		}
-		while (prev_node->prev)
-		{
-			prev_node = prev_node->prev;
-			if (prev_node->content < list->content)
-				list->pos += 1;
-		}
-		list = list->next;
+			ft_rotate(stack_a, stack_b, 8);
+			ft_push(stack_a, stack_b, 4);
+		} */
 	}
 }
 
-void	sort(t_list *stack_a, t_list *stack_b)
+void	sort(t_list **stack_a, t_list **stack_b)
 {
 	int order;
+	int	len;
 	
-	order = check_order(stack, 0);
-	give_position(stack_a);
-	while (order != 0 && stack_b)
+	order = check_order(*stack_a, 0);
+	while (order != 0 || *stack_b) // dont loop with order 0!
 	{
-		if (order < 4)
-			check_stack_a(stack_a);
-		check_stack_b(stack_b);
-		if (order == 0 && stack_b)
-			ft_push(stack_b, stack_a, 4);
-		order = check_order(stack, 0);	
-	}
+		len = ft_lstsize(*stack_a);
+		if (order <= 3 && order != 0)
+			check_stack_a(stack_a, stack_b, len, order);
+		else if (order < (len / 2) && order != 0) // odd half will be 1 less
+		{
+			while(--order)
+				ft_push(stack_a, stack_b, 4);
+			sort(stack_a, stack_b);
+			ft_push(stack_b, stack_a, 3);
+		}
+		else
+		{
+			clear_back(stack_a, stack_b, order);
+			check_b(stack_a, stack_b);
+		}
+		// if (order == 0 && stack_b)
+		// 	ft_push(stack_b, stack_a, 3);
+		order = check_order(*stack_a, 0);	
+	} 
 }
 
-int check_stack_a(t_list *stack)
-{
-	t_list	*temp;
-	
-	temp = ft_lstlast(stack);
-	stack = stack->next
-	if ((stack->pos - stack->prev->pos) == -1)
-		ft_swap(stack_a, stack_a, 0);
-	if ((temp->pos - temp->prev->pos) > 0)
-		//??if (temp->prev->pos - temp->prev->prev->pos)
-		// check_stack_b()
-		ft_rotate(stack_a, stack_b, 5);
-	if (stack->pos - stack->prev->pos == 1)
-		if (stack->pos - stack->next->pos == -1)
-			ft_push(stack_a, stack_b, 3);
-			
-}
+/* 
+0 = sa - swap a
+1 = sb - swap b
+2 = ss - swap both
+3 = pa - push b to a
+4 = pb - push a to b
+5 = ra - rotate a first to last
+6 = rb - rotate b first to last
+7 = rr - rotate both
+8 = rra - rev_rot a last to first
+9 = rrb - rev_rot b last to first
+10 = rrr - rev_rot both
+*/

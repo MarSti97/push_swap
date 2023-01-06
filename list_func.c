@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:10:48 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/04 19:00:53 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:53:08 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,32 @@ void	ft_listadd_front(t_list **lst, t_list *new)
 	new->next = *lst;
 	*lst = new;
 	temp->prev = new;
+}
+
+void	give_position(t_list *list)
+{
+	t_list	*next_node;
+	t_list	*prev_node;
+	int		size;
+
+	size = ft_lstsize(list);
+	while (size--)
+	{		
+		next_node = list;
+		prev_node = list;
+		list->pos = 1;
+		while (next_node->next)
+		{
+			next_node = next_node->next;
+			if (next_node->content < list->content)
+				list->pos += 1;
+		}
+		while (prev_node->prev)
+		{
+			prev_node = prev_node->prev;
+			if (prev_node->content < list->content)
+				list->pos += 1;
+		}
+		list = list->next;
+	}
 }
