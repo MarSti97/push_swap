@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:48:23 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/06 11:49:53 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:26:04 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	make_swap(t_list *list)
 	t_list	*temp;
 	int		temp_cont;
 	int		temp_pos;
-	
+
 		temp = list;
 		temp_cont = list->content;
 		temp_pos = list->pos;
@@ -34,7 +34,7 @@ void	ft_swap(t_list *stack_a, t_list *stack_b, int arg)
 	if (arg == 0 && ft_lstsize(stack_a) > 1)
 	{
 		make_swap(stack_a);
-		ft_printf("sa\n");	
+		ft_printf("sa\n");
 	}
 	if (arg == 1 && ft_lstsize(stack_b) > 1)
 	{
@@ -52,7 +52,7 @@ void	ft_swap(t_list *stack_a, t_list *stack_b, int arg)
 void	ft_push(t_list **from, t_list **to, int arg)
 {
 	t_list	*temp;
-	
+
 	temp = *from;
 	if (temp->next != NULL)
 	{

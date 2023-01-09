@@ -6,103 +6,158 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:54:01 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/06 20:05:08 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/09 19:35:36 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void check_stack_a(t_list **stack_a, t_list **stack_b, int len, int order)
+int		check_b(t_list **stack_a, t_list **stack_b, int arg);
+void	three_combo(t_list **stack_a, t_list **stack_b, int order, int arg);
+
+void	check_stack_a(t_list **stack_a, t_list **stack_b, int len)
 {
 	t_list	*last;
-	
-	last = ft_lstlast(*stack_a);
-	if (((*stack_a)->next->pos - (*stack_a)->pos) == -1)
-		ft_swap(*stack_a, *stack_b, 0);
-	if (len <= 3 && order < 3)
-		if (last->pos - (*stack_a)->pos == -1 || last->pos - (*stack_a)->pos == 1 || order == 0)
-			ft_rotate(stack_a, stack_b, 8);
-	if (len > 3 && order < 3)
-	{
-		if ((*stack_a)->pos - last->pos == 1)
-			ft_rotate(stack_a, stack_b, 5);
-		else 
-		// if ((*stack_a)->pos - (*stack_a)->next->pos != -1 || last->pos - (*stack_a)->pos != 1)
-			ft_push(stack_a, stack_b, 4);
-	}
-	/* 	if (stack_a->next->pos - stack_a->pos > 0)
-			if (stack_a->next->pos - stack_a->next->next->pos == -1)
-			{
-				ft_push(stack_a, stack_b, 4);
-				check_stack_a(stack_a, stack_b, len);
-				ft_push(stack_b, stack_a, 3);
-			} */			
-}
 
-void	clear_back(t_list **stack_a, t_list **stack_b, int order)
-{
-	t_list	*last;
-	
 	last = ft_lstlast(*stack_a);
-	if (order == 0)
+	if ((*stack_a)->pos - last->pos == 1)
 	{
-		ft_rotate(stack_a, stack_b, 8);
-		return ;
-	}	
-	while (last->pos - last->prev->pos == -1)
-	{
-		ft_rotate(stack_a, stack_b, 8);
-		last = ft_lstlast(*stack_a);
-	}
-	ft_rotate(stack_a, stack_b, 8);
-}
-
-void	check_b(t_list **stack_a, t_list **stack_b)
-{
-	if (*stack_b)
-	{
-		if ((*stack_a)->pos - (*stack_b)->pos == 1 || (*stack_a)->pos - (*stack_b)->pos == -1)
-			ft_push(stack_b, stack_a, 3);
-		// if (can swap)
-		// if (can rotate)
-		// if (can rev_rot)	
-	/* 	else if(last->pos - (*stack_a)->pos == 1)
-			ft_rotate(stack_a, stack_b, 8);
+		if (*stack_b && check_b(stack_a, stack_b, 3) == 3)
+			ft_rotate(stack_a, stack_b, 7);
 		else
+			ft_rotate(stack_a, stack_b, 5);
+	}
+	// else if ((*stack_a)->pos - (*stack_a)->next->pos == 1)
+	// 	three_combo(stack_a, stack_b, order, 0);
+	else if ((*stack_a)->pos == len)
+		ft_push(stack_a, stack_b, 4);
+		// ft_swap(*stack_a, *stack_b, 0);
+	if ((*stack_a)->pos - last->pos == -1)
+	{
+		if (*stack_b && check_b(stack_a, stack_b, 2) == 2)
+			ft_rotate(stack_a, stack_b, 10);
+		else
+			ft_rotate(stack_a, stack_b, 8);
+	}
+	// else
+	// 	ft_push(stack_a, stack_b, 4);
+}
+
+void	three_combo(t_list **stack_a, t_list **stack_b, int order, int arg)
+{
+	t_list	*last;
+
+	last = ft_lstlast(*stack_a);
+	if ((*stack_a)->pos - (*stack_a)->next->pos == 1)
+	{
+		if (*stack_b && check_b(stack_a, stack_b, 1) == 1)
+			ft_swap(*stack_a, *stack_b, 2);
+		else
+			ft_swap(*stack_a, *stack_b, 0);
+	}
+	if (order <= 3 && arg == 1)
+		if (last->pos - (*stack_a)->pos == -1 || last->pos - (*stack_a)->pos == 1)
+		{
+			if (*stack_b && check_b(stack_a, stack_b, 2) == 2)
+				ft_rotate(stack_a, stack_b, 10);
+			else
+				ft_rotate(stack_a, stack_b, 8);
+		}
+	if (arg == 0 && *stack_b && (*stack_a)->pos - (*stack_b)->pos == -1)
+		ft_push(stack_b, stack_a, 3);
+}
+
+void	clear_back(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*last;
+
+	last = ft_lstlast(*stack_a);
+	if ((*stack_a)->pos - last->pos == 1)
+	{
+		if (*stack_b && check_b(stack_a, stack_b, 3) == 3)
+			ft_rotate(stack_a, stack_b, 7);
+		else
+			ft_rotate(stack_a, stack_b, 5);
+	}
+	else
+	{			
+		while (last->pos - last->prev->pos == 1)
 		{
 			ft_rotate(stack_a, stack_b, 8);
 			ft_push(stack_a, stack_b, 4);
-		} */
+			last = ft_lstlast(*stack_a);
+		}
+		ft_rotate(stack_a, stack_b, 8);
 	}
+}
+
+int	check_b(t_list **stack_a, t_list **stack_b, int arg)
+{
+	t_list	*temp;
+	t_list	*last;
+
+	temp = *stack_b;
+	last = ft_lstlast(*stack_b);
+	while (temp->next)
+	{
+		if (temp->pos - temp->next->pos == 1)
+			temp = temp->next;
+		else if (temp->pos - temp->next->pos == -1)
+		{
+			if (arg == 1)
+				return (1);
+			ft_swap(*stack_a, *stack_b, 1);
+		}
+		else if (temp->pos - last->pos == -1) // rev_rot
+		{
+			if (arg == 2)
+				return (2);
+			ft_rotate(stack_a, stack_b, 9);
+		}
+		else if (temp->pos - last->pos == 1)
+		{
+			if (arg == 3)
+				return (3);
+			ft_rotate(stack_a, stack_b, 6);
+		}
+		else
+			temp = temp->next;
+	}
+	if (arg == 0)
+		ft_push(stack_b, stack_a, 3);
+	return (0);
 }
 
 void	sort(t_list **stack_a, t_list **stack_b)
 {
-	int order;
+	int	order;
 	int	len;
-	
+	int check;
+
 	order = check_order(*stack_a, 0);
-	while (order != 0 || *stack_b) // dont loop with order 0!
+	while (order != 0 || *stack_b)
 	{
 		len = ft_lstsize(*stack_a);
-		if (order <= 3 && order != 0)
-			check_stack_a(stack_a, stack_b, len, order);
-		else if (order < (len / 2) && order != 0) // odd half will be 1 less
+		if (order == 0)
+			check_b(stack_a, stack_b, 0);
+		else if (len <= 3)
+			three_combo(stack_a, stack_b, order, 1);
+		else if (order <= (len / 2)) // odd half will be 1 less
 		{
-			while(--order)
-				ft_push(stack_a, stack_b, 4);
-			sort(stack_a, stack_b);
-			ft_push(stack_b, stack_a, 3);
+			check = check_big_half(*stack_a, len);
+			if (check == 0 || check == 1)
+				check_stack_a(stack_a, stack_b, len);
+			// else if (order < len / 2)
+			// 	while (order--)
+			// 		ft_push(stack_a, stack_b, 4);
+			else 
+				while (check--) 
+					ft_push(stack_a, stack_b, 4);
 		}
 		else
-		{
-			clear_back(stack_a, stack_b, order);
-			check_b(stack_a, stack_b);
-		}
-		// if (order == 0 && stack_b)
-		// 	ft_push(stack_b, stack_a, 3);
-		order = check_order(*stack_a, 0);	
-	} 
+			clear_back(stack_a, stack_b);
+		order = check_order(*stack_a, 0);
+	}
 }
 
 /* 

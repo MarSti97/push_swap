@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/05 18:42:20 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/09 18:36:37 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_order(t_list *stack, int arg)
 {
 	int	i;
-	
+
 	i = 0;
 	while (stack->next)
 	{
@@ -55,4 +55,36 @@ int	check_args(char **av)
 		}	
 	}
 	return (i);
+}
+
+int check_big_half(t_list *stack, int len)
+{
+	int		i;
+	int		half;
+	
+	half = (len / 2);
+	i = 0;
+	while (half--)
+	{
+		if (stack->pos == len)
+			return (i + 1);
+		i++;
+		stack = stack->next;
+	}
+	return (0);
+}
+
+int	check_rev_order(t_list *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack->next)
+	{
+		if (stack->content < stack->next->content)
+			return (i + 1);
+		i++;
+		stack = stack->next;
+	}		
+	return (0);
 }

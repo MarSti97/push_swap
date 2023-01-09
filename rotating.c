@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:40:17 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/04 18:45:11 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:22:01 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	make_rotate(t_list **stack, int arg)
 {
 	t_list	*temp;
-	
+
 	temp = *stack;
 	ft_listadd_back(stack, temp);
 	*stack = (*stack)->next;
@@ -28,8 +28,8 @@ void	make_rotate(t_list **stack, int arg)
 
 void	make_rev_rot(t_list **stack, int arg)
 {
-	t_list *temp;
-	t_list *last;
+	t_list	*temp;
+	t_list	*last;
 
 	last = ft_lstlast(*stack);
 	temp = last->prev;
@@ -48,7 +48,7 @@ void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg)
 		make_rotate(stack_a, arg);
 	if (arg == 6)
 		make_rotate(stack_b, arg);
-	if 	(arg == 7)
+	if (arg == 7)
 	{
 		make_rotate(stack_a, arg);
 		make_rotate(stack_b, arg);
