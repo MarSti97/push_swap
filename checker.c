@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/09 18:36:37 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/10 12:57:37 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int check_big_half(t_list *stack, int len)
 	{
 		if (stack->pos == len)
 			return (i + 1);
+		if (stack->pos < (len / 2))
+			break;
 		i++;
 		stack = stack->next;
 	}
