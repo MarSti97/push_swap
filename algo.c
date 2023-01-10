@@ -102,7 +102,7 @@ int	check_b(t_list **stack_a, t_list **stack_b, int arg)
 {
 	t_list	*last;
 
-	if (!*stack_b || )
+	if (!*stack_b || (*stack_b)->next == NULL)
 		return (0);
 	last = ft_lstlast(*stack_b);
 	if ((*stack_b)->pos - (*stack_b)->next->pos == -1)
