@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/10 12:57:37 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/11 16:53:55 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	check_args(char **av)
 
 int check_big_half(t_list *stack, int len)
 {
+	// this function is the problem
 	int		i;
 	int		half;
 	
@@ -66,14 +67,15 @@ int check_big_half(t_list *stack, int len)
 	i = 0;
 	while (half--)
 	{
+		if (stack->pos > (len / 2))
+			i++;
 		if (stack->pos == len)
-			return (i + 1);
+			return (i++);
 		if (stack->pos < (len / 2))
 			break;
-		i++;
 		stack = stack->next;
 	}
-	return (0);
+	return (i);
 }
 
 int	check_rev_order(t_list *stack)
