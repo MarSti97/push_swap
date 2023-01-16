@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:40:17 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/04 18:45:11 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/16 12:58:38 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	make_rotate(t_list **stack, int arg)
 	*stack = (*stack)->next;
 	temp->next = NULL;
 	if (arg == 5)
-		ft_printf("ra\n");
+		write(1, "ra\n", 3);
 	if (arg == 6)
-		ft_printf("rb\n");
+		write(1, "rb\n", 3);
 }
 
 void	make_rev_rot(t_list **stack, int arg)
@@ -37,9 +37,9 @@ void	make_rev_rot(t_list **stack, int arg)
 	ft_listadd_front(stack, last);
 	temp->next = NULL;
 	if (arg == 8)
-		ft_printf("rra\n");
+		write(1, "rra\n", 4);
 	if (arg == 9)
-		ft_printf("rrb\n");
+		write(1, "rrb\n", 4);
 }
 
 void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg)
@@ -52,7 +52,7 @@ void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg)
 	{
 		make_rotate(stack_a, arg);
 		make_rotate(stack_b, arg);
-		ft_printf("rr\n");
+		write(1, "rr\n", 3);
 	}
 	if (arg == 8)
 		make_rev_rot(stack_a, arg);
@@ -62,6 +62,6 @@ void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg)
 	{
 		make_rev_rot(stack_a, arg);
 		make_rev_rot(stack_b, arg);
-		ft_printf("rrr\n");
+		write(1, "rrr\n", 4);
 	}	
 }

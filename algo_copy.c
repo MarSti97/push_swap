@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.c                                             :+:      :+:    :+:   */
+/*   algo_copy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:54:01 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 16:41:05 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/16 18:05:36 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 void	ft_search(t_list **stack_a, t_list **stack_b);
+void	pos_to_put(t_list **stack_a, t_list **stack_b);
 void	put_back(t_list **stack_a, t_list **stack_b);
 void	check_rotate(t_list **stack_a, t_list **stack_b);
 void	all_good(t_list **stack_a, t_list **stack_b);
 void	third_pos(t_list **stack_a, t_list **stack_b);
 void	add_back_third(t_list **stack_a, t_list **stack_b);
-void	first_pos(t_list **stack_a, t_list **stack_b);
-void	add_back_first(t_list **stack_a, t_list **stack_b);
+void	change_one(t_list **stack_a, t_list **stack_b);
+void	add_one(t_list **stack_a, t_list **stack_b);
 int		check_three(t_list **stack_a);
-void	three_combo(t_list **stack_a, t_list **stack_b, int arg);
+void	three_combo(t_list **stack_a, t_list **stack_b);
 int		front_back(t_list **stack_a, t_list **stack_b, int len, int last);
 int		calculate_min(int front, int back);
 
 
-void	three_combo(t_list **stack_a, t_list **stack_b, int arg)
+void	three_combo(t_list **stack_a, t_list **stack_b)
 {
 	if ((*stack_a)->pos - (*stack_a)->next->pos == 1)
 		ft_swap(*stack_a, *stack_b, 0);
 	else if ((*stack_a)->pos - (*stack_a)->next->pos == -1 \
 	|| (*stack_a)->pos - (*stack_a)->next->next->pos == -1) // change this or check this
 		ft_rotate(stack_a, stack_b, 8);
-	else if (arg == 1 || arg == 3)
-		first_pos(stack_a, stack_b);
+	else if ((*stack_a)->pos - (*stack_a)->next->pos != -1)
+		change_one(stack_a, stack_b);
 }
 
 int check_three(t_list **stack_a)
@@ -52,7 +53,7 @@ int check_three(t_list **stack_a)
 		return (3); // both wrong
 }
 
-void	first_pos(t_list **stack_a, t_list **stack_b)
+void	change_one(t_list **stack_a, t_list **stack_b)
 {
 	if (!*stack_b || (*stack_b && (*stack_a)->pos - (*stack_b)->pos == 1))
 		ft_push(stack_a, stack_b, 4);
@@ -67,29 +68,22 @@ void	first_pos(t_list **stack_a, t_list **stack_b)
 		ft_swap(*stack_a, *stack_b, 1);
 	}
 	else 
-		add_back_first(stack_a, stack_b);
+		add_one(stack_a, stack_b);
 	// needs testing
 }
 
-void	add_back_first(t_list **stack_a, t_list **stack_b)
+void	add_one(t_list **stack_a, t_list **stack_b)
 {
 	t_list *last;
 
 	last = ft_lstlast(*stack_b);
-	if ((*stack_a)->pos > last->pos)
-	{
-		if ((*stack_b)->next != NULL)
-			ft_rotate(stack_a, stack_b, 9);
-		ft_push(stack_a, stack_b, 4);
-		ft_rotate(stack_a, stack_b, 6);
-	}
-	else if ((*stack_a)->pos < (*stack_b)->pos)
+	if ((*stack_a)->pos < last->pos)
 	{
 		ft_push(stack_a, stack_b, 4);
 		ft_rotate(stack_a, stack_b, 6);
 	}
-	else 
-		ft_push(stack_a, stack_b, 4);
+	else
+		pos_to_put(stack_a, stack_b);
 }
 
 void	third_pos(t_list **stack_a, t_list **stack_b)
@@ -307,12 +301,40 @@ void	ft_search(t_list **stack_a, t_list **stack_b)
 	}	
 	// else find beginning!!
 }
+void	pos_to_put(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*temp;
+	int 	counter;
+	int		len;
+	
+	temp = *stack_b;
+	len = ft_lstsize(*stack_b);
+	counter = 0;
+	while (temp->next && (*stack_a)->pos < temp->next->pos)
+	{
+		counter++;
+		temp = temp->next;
+	}
+	if (counter <= len / 2)
+	{
+		while (counter--)
+			ft_rotate(stack_a, stack_b, 6);
+		ft_push(stack_a, stack_b, 4);	
+	}
+	else
+	{
+		counter = len - counter;
+		while (counter--)
+			ft_rotate(stack_a, stack_b, 9);
+		ft_push(stack_a, stack_b, 4);	
+	}	
+}
 
 void	sort(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last;
+	t_list	*b_last;
 	int		order;
-	int 	to_do;
 	int 	len;
 	// can imploment dracsis flag idea to do both! save some moves for doing movement on both stacks
 
@@ -320,9 +342,8 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	while (order != 0 || *stack_b)
 	{
 		len = ft_lstsize(*stack_a);
-		if (len > 2)
-			to_do = check_three(stack_a);
 		last = ft_lstlast(*stack_a);
+		b_last = ft_lstlast(*stack_b);
 		if (*stack_b)
 		{	
 			while (order == 0 && (*stack_b)->next && (*stack_a)->pos - (*stack_b)->pos == 1)
@@ -333,21 +354,28 @@ void	sort(t_list **stack_a, t_list **stack_b)
 				ft_rotate(stack_a, stack_b, 5);
 				last = ft_lstlast(*stack_a);
 			}
+			while ((*stack_b)->next && b_last->pos - last->pos == 1)
+			{ // can try combine these two to make sorter
+				ft_rotate(stack_a, stack_b, 9);
+				ft_push(stack_b, stack_a, 3);
+				ft_rotate(stack_a, stack_b, 5);
+				last = ft_lstlast(*stack_a);
+			}
 		}// rotate or push and rotate
 		if (order == 0)
 			put_back(stack_a, stack_b);
 		else if ((*stack_a)->pos - last->pos == 1)
 			check_rotate(stack_a, stack_b); // apply every multpy rotate
 		else if (len == 3)
-			three_combo(stack_a, stack_b, to_do);
+			three_combo(stack_a, stack_b);
 		// chdeck if last can fo first with rrv this is tricky which was to rotate
 		// check perfect order reverse and normal, compare the return value, whichever is largest rotate in that direction
-		else if (len > 2 && (to_do == 1 || to_do == 3))
-			first_pos(stack_a, stack_b);
-		else if (len > 2 && to_do == 2)
+		else if (len > 2 && (*stack_a)->pos - (*stack_a)->next->pos != -1)
+			change_one(stack_a, stack_b);
+		else if (len > 2 && (*stack_a)->pos - (*stack_a)->next->pos == -1)
 			third_pos(stack_a, stack_b);
-		else if (len > 2 && to_do == 0)
-			all_good(stack_a, stack_b);
+		// else if (len > 2) // combine ??
+		// 	all_good(stack_a, stack_b);
 		order = perfect_order(*stack_a);
 	}
 }

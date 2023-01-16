@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/14 15:55:42 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/16 16:29:14 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdarg.h>
+# include <limits.h>
 
 typedef struct s_list
 {
