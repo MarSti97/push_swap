@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/14 15:55:23 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:29:06 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int	check_args(char **av)
 	j = 0;
 	while (av[++j])
 	{
+		if (ft_atol(av[j]) < INT_MIN || ft_atol(av[j]) > INT_MAX)
+		{
+			write(2, "Error\n", 6);
+			return (0);
+		}
 		i = 0;
 		while (av[j][i])
 		{

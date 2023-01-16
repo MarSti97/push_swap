@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 16:29:14 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:20:01 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		perfect_order_rev(t_list *stack);
 
 // libft
 int     ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 int     ft_printf(const char *input, ...);
 int     ft_putchar_fd(char c, int fd);
 int     ft_putstr_fd(char *str, int fd);

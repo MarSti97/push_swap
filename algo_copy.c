@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:54:01 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 18:05:36 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/16 22:43:28 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	change_one(t_list **stack_a, t_list **stack_b);
 void	add_one(t_list **stack_a, t_list **stack_b);
 int		check_three(t_list **stack_a);
 void	three_combo(t_list **stack_a, t_list **stack_b);
-int		front_back(t_list **stack_a, t_list **stack_b, int len, int last);
+int		front_or_back(t_list **stack_a, t_list **stack_b, int len, int last);
 int		calculate_min(int front, int back);
-
+void	make_end(t_list **stack_a, t_list **stack_b);
 
 void	three_combo(t_list **stack_a, t_list **stack_b)
 {
@@ -36,21 +36,6 @@ void	three_combo(t_list **stack_a, t_list **stack_b)
 		ft_rotate(stack_a, stack_b, 8);
 	else if ((*stack_a)->pos - (*stack_a)->next->pos != -1)
 		change_one(stack_a, stack_b);
-}
-
-int check_three(t_list **stack_a)
-{
-	t_list *mid;
-
-	mid = (*stack_a)->next;
-	if (mid->pos - mid->prev->pos == 1 && mid->pos - mid->next->pos == -1)
-		return (0); // correct
-	else if (mid->pos - mid->prev->pos != 1 && mid->pos - mid->next->pos == -1)
-		return (1); // 1st wrong, 3rd correct
-	else if (mid->pos - mid->prev->pos == 1 && mid->pos - mid->next->pos != -1)
-		return (2); // 1st correct, 3rd wrong
-	else 
-		return (3); // both wrong
 }
 
 void	change_one(t_list **stack_a, t_list **stack_b)
@@ -216,7 +201,7 @@ void	put_back(t_list **stack_a, t_list **stack_b)
 		ft_search(stack_a, stack_b);
 }
 
-int	front_back(t_list **stack_a, t_list **stack_b, int len, int last)
+int	front_or_back(t_list **stack_a, t_list **stack_b, int len, int last)
 { // maybe this shit is too much
 	t_list	*temp;
 	int 	front;
@@ -284,7 +269,7 @@ void	ft_search(t_list **stack_a, t_list **stack_b)
 
 	len = ft_lstsize(*stack_b);
 	last = ft_lstlast(*stack_a);
-	to_do = front_back(stack_a, stack_b, len, last->pos);
+	to_do = front_or_back(stack_a, stack_b, len, last->pos);
 	if (to_do < 0)
 	{
 		to_do = to_do * -1;
@@ -318,22 +303,50 @@ void	pos_to_put(t_list **stack_a, t_list **stack_b)
 	if (counter <= len / 2)
 	{
 		while (counter--)
+		{
 			ft_rotate(stack_a, stack_b, 6);
+			make_end(stack_a, stack_b);
+		}
 		ft_push(stack_a, stack_b, 4);	
 	}
 	else
 	{
 		counter = len - counter;
 		while (counter--)
+		{
 			ft_rotate(stack_a, stack_b, 9);
+			make_end(stack_a, stack_b);
+		}
 		ft_push(stack_a, stack_b, 4);	
 	}	
+}
+
+void	make_end(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*last;
+	t_list	*b_last;
+
+	last = ft_lstlast(*stack_a);
+	b_last = ft_lstlast(*stack_b);
+	while ((*stack_b)->next && (*stack_b)->pos - last->pos == 1)
+	{
+		ft_push(stack_b, stack_a, 3);
+		ft_rotate(stack_a, stack_b, 5);
+		last = ft_lstlast(*stack_a);
+	}
+	while ((*stack_b)->next && b_last->pos - last->pos == 1)
+	{ // can try combine these two to make sorter
+		ft_rotate(stack_a, stack_b, 9);
+		ft_push(stack_b, stack_a, 3);
+		ft_rotate(stack_a, stack_b, 5);
+		last = ft_lstlast(*stack_a);
+		// b_last = ft_lstlast(*stack_b);
+	}
 }
 
 void	sort(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last;
-	t_list	*b_last;
 	int		order;
 	int 	len;
 	// can imploment dracsis flag idea to do both! save some moves for doing movement on both stacks
@@ -343,27 +356,14 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	{
 		len = ft_lstsize(*stack_a);
 		last = ft_lstlast(*stack_a);
-		b_last = ft_lstlast(*stack_b);
 		if (*stack_b)
-		{	
-			while (order == 0 && (*stack_b)->next && (*stack_a)->pos - (*stack_b)->pos == 1)
-				ft_push(stack_b, stack_a, 3);
-			while ((*stack_b)->next && (*stack_b)->pos - last->pos == 1)
-			{
-				ft_push(stack_b, stack_a, 3);
-				ft_rotate(stack_a, stack_b, 5);
-				last = ft_lstlast(*stack_a);
-			}
-			while ((*stack_b)->next && b_last->pos - last->pos == 1)
-			{ // can try combine these two to make sorter
-				ft_rotate(stack_a, stack_b, 9);
-				ft_push(stack_b, stack_a, 3);
-				ft_rotate(stack_a, stack_b, 5);
-				last = ft_lstlast(*stack_a);
-			}
-		}// rotate or push and rotate
+			make_end(stack_a, stack_b);
 		if (order == 0)
-			put_back(stack_a, stack_b);
+		{
+			while ((*stack_b)->next && (*stack_a)->pos - (*stack_b)->pos == 1)
+				ft_push(stack_b, stack_a, 3);
+			put_back(stack_a, stack_b);	
+		}
 		else if ((*stack_a)->pos - last->pos == 1)
 			check_rotate(stack_a, stack_b); // apply every multpy rotate
 		else if (len == 3)
