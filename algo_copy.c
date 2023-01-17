@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:54:01 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 22:43:28 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:14:09 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	make_end(t_list **stack_a, t_list **stack_b);
 
 void	three_combo(t_list **stack_a, t_list **stack_b)
 {
-	if ((*stack_a)->pos - (*stack_a)->next->pos == 1)
-		ft_swap(*stack_a, *stack_b, 0);
-	else if ((*stack_a)->pos - (*stack_a)->next->pos == -1 \
+	if ((*stack_a)->pos - (*stack_a)->next->pos == 1 \
 	|| (*stack_a)->pos - (*stack_a)->next->next->pos == -1) // change this or check this
+		ft_swap(*stack_a, *stack_b, 0);
+	else if ((*stack_a)->pos - (*stack_a)->next->pos == -1)
 		ft_rotate(stack_a, stack_b, 8);
 	else if ((*stack_a)->pos - (*stack_a)->next->pos != -1)
 		change_one(stack_a, stack_b);
@@ -59,15 +59,15 @@ void	change_one(t_list **stack_a, t_list **stack_b)
 
 void	add_one(t_list **stack_a, t_list **stack_b)
 {
-	t_list *last;
+	// t_list *last;
 
-	last = ft_lstlast(*stack_b);
-	if ((*stack_a)->pos < last->pos)
-	{
-		ft_push(stack_a, stack_b, 4);
-		ft_rotate(stack_a, stack_b, 6);
-	}
-	else
+	// last = ft_lstlast(*stack_b);
+	// if ((*stack_a)->pos < last->pos)
+	// {
+	// 	ft_push(stack_a, stack_b, 4);
+	// 	ft_rotate(stack_a, stack_b, 6);
+	// }
+	// else
 		pos_to_put(stack_a, stack_b);
 }
 
@@ -295,7 +295,7 @@ void	pos_to_put(t_list **stack_a, t_list **stack_b)
 	temp = *stack_b;
 	len = ft_lstsize(*stack_b);
 	counter = 0;
-	while (temp->next && (*stack_a)->pos < temp->next->pos)
+	while (temp->next && (*stack_a)->pos < temp->pos)
 	{
 		counter++;
 		temp = temp->next;
@@ -342,6 +342,9 @@ void	make_end(t_list **stack_a, t_list **stack_b)
 		last = ft_lstlast(*stack_a);
 		// b_last = ft_lstlast(*stack_b);
 	}
+	while (*stack_b && (*stack_b)->pos - (*stack_a)->pos == -1 \
+	&& (*stack_b)->pos - last->pos == 1)
+		put_back(stack_a, stack_b);	
 }
 
 void	sort(t_list **stack_a, t_list **stack_b)
@@ -374,9 +377,18 @@ void	sort(t_list **stack_a, t_list **stack_b)
 			change_one(stack_a, stack_b);
 		else if (len > 2 && (*stack_a)->pos - (*stack_a)->next->pos == -1)
 			third_pos(stack_a, stack_b);
+		else if (len == 2)
+		{
+			ft_swap(*stack_a, *stack_b, 0);
+			while ((*stack_b)->next && (*stack_b)->pos - (*stack_b)->next->pos == 1)
+				ft_push(stack_b, stack_a, 3);
+			ft_push(stack_b, stack_a, 3);
+			ft_rotate(stack_a, stack_b, 8);
+		}
 		// else if (len > 2) // combine ??
 		// 	all_good(stack_a, stack_b);
 		order = perfect_order(*stack_a);
+		// ft_print_stack(*stack_a, *stack_b);
 	}
 }
 
@@ -397,4 +409,5 @@ todo:
 1 == swap
 2 == rotate 
 3 == rev_rot
+33 50 90 61 49 75 2 23 78 92 97 88 63 21 40 58 25 20 17 100 95 39 76 99 42 18 37 14 9 31 65 55 32 5 11 51 53 86 12 41 82 24 60 26 89 7 48 27 72 68 80 85 38 10 81 19 94 8 77 34 13 74 73 6 64 69 56 96 30 93 98 29 3 47 46 52 36 70 71 66 22 87 43 35 28 15 83 57 91 79 1 62 4 44 84 67 45 54 59 16
 */

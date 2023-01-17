@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:54:01 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 16:41:05 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:09:02 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,69 +254,7 @@ int	front_back(t_list **stack_a, t_list **stack_b, int len, int last)
 }
 
 int	calculate_min(int front, int back)
-{
-	int front_op;
-	int back_op;
-
-	front_op = front * -1;
-	back_op = back * -1;
-	if (front < 0 && back < 0 && front < back)
-		return (back);
-	else if (front < 0 && back < 0 && front > back)
-		return (front);
-	else if (front < 0 && back > 0)
-	{
-		if (front_op <= back)
-			return (front);
-		return (back);	
-	}
-	else if (front > 0 && back < 0)
-	{
-		if (front <= back_op)
-			return (front);
-		return (back);
-	}
-	else if (front > 0 && back > 0 && front < back)
-		return (front);
-	else
-		return (back);
-} // return positive to rotate, negative to reverse rotate
-
-void	ft_search(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*last;
-	int		len;
-	int		to_do;
-
-	len = ft_lstsize(*stack_b);
-	last = ft_lstlast(*stack_a);
-	to_do = front_back(stack_a, stack_b, len, last->pos);
-	if (to_do < 0)
-	{
-		to_do = to_do * -1;
-		while (to_do--)
-			ft_rotate(stack_a, stack_b, 9);
-		while ((*stack_b)->next && (*stack_b)->pos - (*stack_b)->next->pos == 1)
-			ft_push(stack_b, stack_a, 3);
-		ft_push(stack_b, stack_a, 3);
-	}	
-	else
-	{
-		while (to_do--)
-			ft_rotate(stack_a, stack_b, 6);		
-	}	
-	// else find beginning!!
-}
-
-void	sort(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*last;
-	int		order;
-	int 	to_do;
-	int 	len;
-	// can imploment dracsis flag idea to do both! save some moves for doing movement on both stacks
-
-	order = perfect_order(*stack_a);
+{33 50 90 61 49 75 2 23 78 92 97 88 63 21 40 58 25 20 17 100 95 39 76 99 42 18 37 14 9 31 65 55 32 5 11 51 53 86 12 41 82 24 60 26 89 7 48 27 72 68 80 85 38 10 81 19 94 8 77 34 13 74 73 6 64 69 56 96 30 93 98 29 3 47 46 52 36 70 71 66 22 87 43 35 28 15 83 57 91 79 1 62 4 44 84 67 45 54 59 16(*stack_a);
 	while (order != 0 || *stack_b)
 	{
 		len = ft_lstsize(*stack_a);
@@ -349,6 +287,7 @@ void	sort(t_list **stack_a, t_list **stack_b)
 		else if (len > 2 && to_do == 0)
 			all_good(stack_a, stack_b);
 		order = perfect_order(*stack_a);
+		
 	}
 }
 
