@@ -6,32 +6,11 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/17 21:18:06 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/18 18:42:48 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	check_order(t_list *stack, int arg)
-{
-	int	i;
-
-	i = 0;
-	while (stack->next)
-	{
-		if (stack->content > stack->next->content)
-		{
-			if (arg == 1)
-				ft_printf("Wrong Order!\n");
-			return (i + 1);
-		}
-		i++;
-		stack = stack->next;
-	}		
-	if (arg == 1)
-		ft_printf("OK\n");
-	return (0);
-}
 
 int	check_args(char **av)
 {
@@ -106,9 +85,4 @@ int perfect_order_rev(t_list *stack)
 		stack = stack->prev;
 	}		
 	return (0);	
-}
-
-int check_big(t_list *stack)
-{
-	
 }

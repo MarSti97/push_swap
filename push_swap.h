@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 21:20:01 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/18 18:42:53 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,29 @@ typedef struct s_list
 
 }					t_list;
 
-void	ft_swap(t_list *list_a, t_list *list_b, int arg);
-void	make_swap(t_list *list);
-int		check_order(t_list *stack, int arg);
-int		check_args(char **av);
-void	ft_push(t_list **from, t_list **to, int arg);
-void	make_rotate(t_list **stack, int arg);
-void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg);
-void	make_rev_rot(t_list **stack, int arg);
 void	ft_listadd_back(t_list **lst, t_list *new);
 void	ft_listadd_front(t_list **lst, t_list *new);
-void	sort(t_list **stack_a, t_list **stack_b);
 void	give_position(t_list *list);
+void	make_swap(t_list *list);
+void	ft_swap(t_list *list_a, t_list *list_b, int arg);
+void	ft_push(t_list **from, t_list **to, int arg);
+void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg);
+void	make_rotate(t_list **stack, int arg);
+void	make_rev_rot(t_list **stack, int arg);
+int		check_args(char **av);
+void	sort(t_list **stack_a, t_list **stack_b);
 int		b_perfect(t_list *stack);
 int		perfect_order(t_list *stack);
 int		perfect_order_rev(t_list *stack);
+// new version 
+void	ft_search(t_list **stack_a, t_list **stack_b);
+int     front_or_back(t_list **stack_a, t_list **stack_b, int len, int last);
+int     calculate_min(int front, int back);
+void	check_rotate(t_list **stack_a, t_list **stack_b);
+void	make_end(t_list **stack_a, t_list **stack_b);
+void	put_back(t_list **stack_a, t_list **stack_b);
+int		to_stop(t_list *stack_a, int half);
+
 
 // libft
 int     ft_atoi(const char *nptr);
