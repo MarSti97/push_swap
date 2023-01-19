@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/18 18:42:53 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/19 18:23:34 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	make_swap(t_list *list);
 void	ft_swap(t_list *list_a, t_list *list_b, int arg);
 void	ft_push(t_list **from, t_list **to, int arg);
 void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg);
-void	make_rotate(t_list **stack, int arg);
-void	make_rev_rot(t_list **stack, int arg);
+void	make_rotate(t_list **stack);
+void	make_rev_rot(t_list **stack);
 int		check_args(char **av);
 void	sort(t_list **stack_a, t_list **stack_b);
 int		b_perfect(t_list *stack);
@@ -50,8 +50,10 @@ int     calculate_min(int front, int back);
 void	check_rotate(t_list **stack_a, t_list **stack_b);
 void	make_end(t_list **stack_a, t_list **stack_b);
 void	put_back(t_list **stack_a, t_list **stack_b);
-int		to_stop(t_list *stack_a, int half);
-
+int		to_stop(t_list *stack_a, int divide);
+void    execute_a(t_list **stack_a, t_list **stack_b, int arg);
+void    execute_b(t_list **stack_a, t_list **stack_b, int arg, int half);
+void	dub_search(int arg);
 
 // libft
 int     ft_atoi(const char *nptr);

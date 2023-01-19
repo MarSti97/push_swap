@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:48:23 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/16 12:50:39 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/19 18:48:02 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,23 @@ void	make_swap(t_list *list)
 
 void	ft_swap(t_list *stack_a, t_list *stack_b, int arg)
 {	
-	if (arg == 0 && ft_lstsize(stack_a) > 1)
+	if (arg == 1 && ft_lstsize(stack_a) > 1)
 	{
 		make_swap(stack_a);
-		write(1, "sa\n", 3);	
+		// write(1, "sa\n", 3);	
 	}
-	if (arg == 1 && ft_lstsize(stack_b) > 1)
+	if (arg == 2 && ft_lstsize(stack_b) > 1)
 	{
 		make_swap(stack_b);
-		write(1, "sb\n", 3);
+		// write(1, "sb\n", 3);
 	}
-	if (arg == 2 && ft_lstsize(stack_a) > 1 && ft_lstsize(stack_b) > 1)
+	if (arg == 3 && ft_lstsize(stack_a) > 1 && ft_lstsize(stack_b) > 1)
 	{
 		make_swap(stack_a);
 		make_swap(stack_b);
-		write(1, "ss\n", 3);
+		// write(1, "ss\n", 3);
 	}
+	dub_search(arg);
 }
 
 void	ft_push(t_list **from, t_list **to, int arg)
@@ -65,8 +66,9 @@ void	ft_push(t_list **from, t_list **to, int arg)
 		ft_listadd_front(to, temp);
 		*from = NULL;
 	}
-	if (arg == 3)
-		write(1, "pa\n", 3);
-	if (arg == 4)
-		write(1, "pb\n", 3);
+	// if (arg == 3)
+	// 	write(1, "pa\n", 3);
+	// if (arg == 4)
+	// 	write(1, "pb\n", 3);
+	dub_search(arg);
 }

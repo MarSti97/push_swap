@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:02:24 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/18 18:35:54 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/19 18:53:12 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	check_rotate(t_list **stack_a, t_list **stack_b)
 	if (front > back)
 	{
 		while (back--)
-			ft_rotate(stack_a, stack_b, 8);
+			ft_rotate(stack_a, stack_b, 9);
 	}
 	else // front <= back
 	{
 		while (front--)
-			ft_rotate(stack_a, stack_b, 5);	
+			ft_rotate(stack_a, stack_b, 6);	
 	}
 	// check if the -- is in correct position 
 }
@@ -50,16 +50,16 @@ void	ft_search(t_list **stack_a, t_list **stack_b)
 	{
 		to_do = to_do * -1;
 		while (to_do--)
-			ft_rotate(stack_a, stack_b, 9);
+			ft_rotate(stack_a, stack_b, 10);
 		while ((*stack_b)->next && (*stack_b)->pos - (*stack_b)->next->pos == 1)
-			ft_push(stack_b, stack_a, 3);
-		ft_push(stack_b, stack_a, 3);
+			ft_push(stack_b, stack_a, 4);
+		ft_push(stack_b, stack_a, 4);
 	}	
 	else
 	{
 		while (to_do--)
-			ft_rotate(stack_a, stack_b, 6);
-		ft_push(stack_b, stack_a, 3);
+			ft_rotate(stack_a, stack_b, 7);
+		ft_push(stack_b, stack_a, 4);
 	}	
 	// else find beginning!!
 }
@@ -105,15 +105,15 @@ void	make_end(t_list **stack_a, t_list **stack_b) // this is to check if anythin
 	b_last = ft_lstlast(*stack_b);
 	while ((*stack_b)->next && (*stack_b)->pos - last->pos == 1)
 	{
-		ft_push(stack_b, stack_a, 3);
-		ft_rotate(stack_a, stack_b, 5);
+		ft_push(stack_b, stack_a, 4);
+		ft_rotate(stack_a, stack_b, 6);
 		last = ft_lstlast(*stack_a);
 	}
 	while ((*stack_b)->next && b_last->pos - last->pos == 1)
 	{ // can try combine these two to make sorter
-		ft_rotate(stack_a, stack_b, 9);
-		ft_push(stack_b, stack_a, 3);
-		ft_rotate(stack_a, stack_b, 5);
+		ft_rotate(stack_a, stack_b, 10);
+		ft_push(stack_b, stack_a, 4);
+		ft_rotate(stack_a, stack_b, 6);
 		last = ft_lstlast(*stack_a);
 		// b_last = ft_lstlast(*stack_b);
 	}
@@ -151,15 +151,15 @@ int	calculate_min(int front, int back)
 		return (back);
 }
 
-int	to_stop(t_list *stack_a, int half)
+int	to_stop(t_list *stack_a, int divide)
 {
 	while (stack_a->next)
 	{
-		if (stack_a->pos < half)
+		if (stack_a->pos <= divide)
 			return (1);
 		stack_a = stack_a->next;
 	}
-	if (stack_a->pos < half)
+	if (stack_a->pos < divide)
 		return (1);
 	return (0);
 }
