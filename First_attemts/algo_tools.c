@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:02:24 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/18 12:50:50 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/20 12:32:09 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,33 @@ void	make_end(t_list **stack_a, t_list **stack_b) // this is to check if anythin
 // 	else
 // 		return (back);
 // }
+
+void	find_next_b(t_list **stack_a, t_list **stack_b, t_list *last, int divide)
+{
+	t_list	*temp;
+	int 	front;
+	int		back;
+	
+	temp = *stack_a;
+	front = 0;
+	back = 0;
+	while (temp->pos > divide && temp->next)
+	{
+		front++;
+		temp = temp->next;
+	}
+	while (last->pos > divide && last->prev)
+	{
+		back++;
+		last = last->prev;
+	}
+	if (front <= back)
+		while (front--)
+			execute_a(stack_a, stack_b, 6);
+	else
+	{
+		while (back--)
+			execute_a(stack_a, stack_b, 9);
+		execute_a(stack_a, stack_b, 9);
+	}
+}

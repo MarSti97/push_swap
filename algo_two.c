@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:11:18 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/19 18:51:45 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/20 13:00:02 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,9 @@ void	sort(t_list **stack_a, t_list **stack_b)
 int	how_to_divide(int len, int time)
 {
 	static int	divide;
-	
+	static int	res;
+
+	res++;
 	if (time == 1)
 	{
 		if (len >= 100)
@@ -252,7 +254,7 @@ int	how_to_divide(int len, int time)
 	else
 	{
 		if (len > 100)
-			divide += divide;
+			return (divide * res);
 		else
 			divide += (len / 2);
 	}
