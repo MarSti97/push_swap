@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/18 18:42:48 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/20 16:34:03 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,19 @@ int perfect_order_rev(t_list *stack)
 		stack = stack->prev;
 	}		
 	return (0);	
+}
+
+int	simple_order(t_list *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack->next)
+	{
+		if (stack->pos < stack->next->pos)
+			return (++i);
+		i++;
+		stack = stack->next;
+	}
+	return (0);
 }

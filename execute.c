@@ -39,7 +39,7 @@ void    execute_a(t_list **stack_a, t_list **stack_b, int arg)
 	}
 }
 
-void    execute_b(t_list **stack_a, t_list **stack_b, int arg, int half)
+void    execute_b(t_list **stack_a, t_list **stack_b, int arg)
 {
 	t_list  *last;
 
@@ -49,13 +49,6 @@ void    execute_b(t_list **stack_a, t_list **stack_b, int arg, int half)
 		if ((*stack_a)->pos - (*stack_a)->next->pos == -1 || (*stack_a)->pos > (*stack_a)->next->pos)
 			ft_swap(*stack_a, *stack_b, 3);
 		else
-			ft_swap(*stack_a, *stack_b, 1);
+			ft_swap(*stack_a, *stack_b, 2);
 	}
-	else if (arg == 7)
-	{
-		if ((*stack_a)->pos > half && last->pos > half)
-			ft_rotate(stack_a, stack_b, 8);
-		else
-			ft_rotate(stack_a, stack_b, 7);
-	}
-}
+} // changed things to work with 500 turn back if fucked
