@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_tools_copy.c                                  :+:      :+:    :+:   */
+/*   algo_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:02:24 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/20 13:14:02 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/22 14:18:37 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	check_rotate(t_list **stack_a, t_list **stack_b)
 	if (front > back)
 	{
 		while (back--)
-			ft_rotate(stack_a, stack_b, 9);
+			execute_a(stack_a, stack_b, 9);
 	}
 	else // front <= back
 	{
 		while (front--)
-			ft_rotate(stack_a, stack_b, 6);	
+			execute_a(stack_a, stack_b, 6);	
 	}
 	// check if the -- is in correct position 
 }

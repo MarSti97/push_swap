@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/20 16:08:23 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/22 22:12:42 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int		to_stop(t_list *stack_a, int divide);
 void    execute_a(t_list **stack_a, t_list **stack_b, int arg);
 void    execute_b(t_list **stack_a, t_list **stack_b, int arg);
 void	dub_search(int arg);
+int		how_to_divide(int len, int full, int time);
+
+// 500 version
+void	ft_search_500(t_list **stack_a, t_list **stack_b);
+int	to_stop_500(t_list *stack_a, int front, int back);
 
 // libft
 int     ft_atoi(const char *nptr);

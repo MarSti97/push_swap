@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/09/10 08:48:44 by lmartins         ###   ########.fr        #
+#    Updated: 2023/01/21 18:34:26 by mstiedl          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ if [ "$(eval uname)" == "Linux" ]
 then
 	CHECKER=./checker_linux
 else
-	CHECKER=./checker
+	CHECKER=./checker_Mac
 fi
 
 if ! command -v $CHECKER &> /dev/null

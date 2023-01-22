@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_500_tools.c                                   :+:      :+:    :+:   */
+/*   test_algo_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:24:39 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/20 17:36:53 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/22 22:13:10 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,15 @@ int	search_pos(t_list **stack_a, t_list **stack_b, int len, int last)
 		return (front);
 	return (calculate_min(front, back));
 }
-int	what_to_look_for(t_list *stack, int last)
-{
-	int	front;
-	int	back;
-	while ((*stack_a)->next)
-	{
-		if ((*stack_a)->pos (*stack_b)->pos )
-	last  
-		
-	}
-}
+
 void	ft_search_500(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last;
 	int		len;
 	int		to_do;
-	int		look_for;
 
 	len = ft_lstsize(*stack_b);
 	last = ft_lstlast(*stack_a);
-	if (perfect_order(*stack_a) != 0)
-		look_for = what_to_look_for(*stack_a, last->pos);
 	to_do = search_pos(stack_a, stack_b, len, last->pos);
 	if (to_do < 0)
 	{
@@ -80,6 +67,8 @@ void	ft_search_500(t_list **stack_a, t_list **stack_b)
 			ft_rotate(stack_a, stack_b, 7);
 		ft_push(stack_b, stack_a, 4);
 	}	
+	if ((*stack_a)->pos - last->pos == 1)
+		check_rotate(stack_a, stack_b);
 	// else find beginning!!
 }
 
@@ -94,4 +83,76 @@ int	to_stop_500(t_list *stack_a, int front, int back)
 	if (stack_a->pos <= front || stack_a->pos >= back)
 		return (1);
 	return (0);
+}
+
+int	how_to_divide(int len, int full, int time)
+{
+	static int	divide;
+	static int	res;
+
+	res++;
+	if (time == 1)
+	{
+		if (len >= 100)
+			divide = full / 5;
+		else
+			divide = full / 2;	
+	}
+	else
+	{
+		if (len > 100)
+			divide += (full / 5);
+		else
+			divide += (len / 2);
+	}
+	return (divide);
+}
+
+int	calculate_min(int front, int back)
+{
+	int front_op;
+	int back_op;
+
+	front_op = front * -1;
+	back_op = back * -1;
+	if (front < 0 && back < 0 && front < back)
+		return (back);
+	else if (front < 0 && back < 0 && front > back)
+		return (front);
+	else if (front < 0 && back > 0)
+	{
+		if (front_op <= back)
+			return (front);
+		return (back);	
+	}
+	else if (front > 0 && back < 0)
+	{
+		if (front <= back_op)
+			return (front);
+		return (back);
+	}
+	else if (front > 0 && back > 0 && front < back)
+		return (front);
+	else
+		return (back);
+}
+
+void	check_rotate(t_list **stack_a, t_list **stack_b)
+{
+	int	front;
+	int	back;
+
+	front = perfect_order(*stack_a);
+	back = perfect_order_rev(*stack_a);
+	if (front > back)
+	{
+		while (back--)
+			ft_rotate(stack_a, stack_b, 9);
+	}
+	else // front <= back
+	{
+		while (front--)
+			ft_rotate(stack_a, stack_b, 6);	
+	}
+	// maybe can take some moves off if use execute
 }

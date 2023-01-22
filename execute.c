@@ -41,9 +41,9 @@ void    execute_a(t_list **stack_a, t_list **stack_b, int arg)
 
 void    execute_b(t_list **stack_a, t_list **stack_b, int arg)
 {
-	t_list  *last;
+	// t_list  *last;
 
-    last = ft_lstlast(*stack_b);
+    // last = ft_lstlast(*stack_b);
     if (arg == 2)
 	{
 		if ((*stack_a)->pos - (*stack_a)->next->pos == -1 || (*stack_a)->pos > (*stack_a)->next->pos)
