@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/20 16:34:03 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:56:25 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	b_perfect(t_list *stack)
 	return (0);
 }
 
-int perfect_order(t_list *stack)
+int	perfect_order(t_list *stack)
 {
 	int	i;
 
@@ -68,10 +68,10 @@ int perfect_order(t_list *stack)
 		i++;
 		stack = stack->next;
 	}		
-	return (0);	
+	return (0);
 }
 
-int perfect_order_rev(t_list *stack)
+int	perfect_order_rev(t_list *stack)
 {
 	int	i;
 
@@ -84,20 +84,5 @@ int perfect_order_rev(t_list *stack)
 		i++;
 		stack = stack->prev;
 	}		
-	return (0);	
-}
-
-int	simple_order(t_list *stack)
-{
-	int	i;
-
-	i = 0;
-	while (stack->next)
-	{
-		if (stack->pos < stack->next->pos)
-			return (++i);
-		i++;
-		stack = stack->next;
-	}
 	return (0);
 }

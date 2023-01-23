@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:10:48 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/12 13:47:40 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/23 17:07:59 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_listadd_back(t_list **lst, t_list *new)
 void	ft_listadd_front(t_list **lst, t_list *new)
 {
 	t_list	*temp;
+
 	if (!*lst)
 	{
 		new->next = *lst;

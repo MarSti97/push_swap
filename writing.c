@@ -1,78 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotating.c                                         :+:      :+:    :+:   */
+/*   writing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:40:17 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/19 18:46:13 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:44:39 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void to_write(int arg);
-
-void	make_rotate(t_list **stack)
-{
-	t_list	*temp;
-	
-	temp = *stack;
-	ft_listadd_back(stack, temp);
-	*stack = (*stack)->next;
-	temp->next = NULL;
-	// if (arg == 5)
-	// 	write(1, "ra\n", 3);
-	// if (arg == 6)
-	// 	write(1, "rb\n", 3);
-}
-
-void	make_rev_rot(t_list **stack)
-{
-	t_list *temp;
-	t_list *last;
-
-	last = ft_lstlast(*stack);
-	temp = last->prev;
-	last->prev = NULL;
-	ft_listadd_front(stack, last);
-	temp->next = NULL;
-	// if (arg == 8)
-	// 	write(1, "rra\n", 4);
-	// if (arg == 9)
-	// 	write(1, "rrb\n", 4);
-}
-
-void	ft_rotate(t_list **stack_a, t_list **stack_b, int arg)
-{
-	if (arg == 6)
-		make_rotate(stack_a);
-	if (arg == 7)
-		make_rotate(stack_b);
-	if 	(arg == 8)
-	{
-		make_rotate(stack_a);
-		make_rotate(stack_b);
-		// write(1, "rr\n", 3);
-	}
-	if (arg == 9)
-		make_rev_rot(stack_a);
-	if (arg == 10)
-		make_rev_rot(stack_b);
-	if (arg == 11)
-	{
-		make_rev_rot(stack_a);
-		make_rev_rot(stack_b);
-		// write(1, "rrr\n", 4);
-	}
-	dub_search(arg);
-}
-
 void	dub_search(int arg)
 {
-	static int keep;
-	
+	static int	keep;
+
 	if (arg == -1)
 		to_write(keep);
 	else if (!keep)
@@ -89,7 +32,13 @@ void	dub_search(int arg)
 		to_write(8);
 		keep = 0;
 	}
-	else if ((keep == 9 && arg == 10) || (keep == 10 && arg == 9))
+	else
+		keep = dub_search_two(keep, arg);
+}
+
+int	dub_search_two(int keep, int arg)
+{
+	if ((keep == 9 && arg == 10) || (keep == 10 && arg == 9))
 	{
 		to_write(11);
 		keep = 0;
@@ -99,12 +48,13 @@ void	dub_search(int arg)
 		to_write(keep);
 		keep = arg;
 	}
+	return (keep);
 }
 
-void to_write(int arg)
+void	to_write(int arg)
 {
 	if (arg == 1)
-		write(1, "sa\n", 3);	
+		write(1, "sa\n", 3);
 	else if (arg == 2)
 		write(1, "sb\n", 3);
 	else if (arg == 3)

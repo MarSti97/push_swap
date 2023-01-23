@@ -14,29 +14,10 @@ void    execute_a(t_list **stack_a, t_list **stack_b, int arg)
 			else
 				ft_swap(*stack_a, *stack_b, 1);
 		}
-		else if (arg == 6)
-		{
-			if ((*stack_b)->pos - (*stack_b)->next->pos != 1 && (*stack_b)->pos < last->pos)
-				ft_rotate(stack_a, stack_b, 7);
-			else
-				ft_rotate(stack_a, stack_b, 6);
-		}
-		else if (arg == 9)
-		{
-			if (last->pos - last->prev->pos != -1 && (*stack_b)->pos < last->pos)
-				ft_rotate(stack_a, stack_b, 11);
-			else
-				ft_rotate(stack_a, stack_b, 9); 
-		}
 	}
 	else
-	{
 		if (arg == 1)
 			ft_swap(*stack_a, *stack_b, 1);
-		else
-			ft_rotate(stack_a, stack_b, arg);
-
-	}
 }
 
 void    execute_b(t_list **stack_a, t_list **stack_b, int arg)

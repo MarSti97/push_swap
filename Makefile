@@ -1,5 +1,5 @@
-SRCS = push_swap.c altering.c checker.c list_func.c rotating.c test_algo.c test_algo_two.c \
-ft_atoi.c ft_printf.c ft_put.c execute.c
+SRCS = push_swap.c moves.c checkers.c list_func.c writing.c algo.c algo_tools.c \
+ft_atoi.c ft_printf.c ft_put.c algo_two.c
 FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 NAME = push_swap
 RM = rm -f

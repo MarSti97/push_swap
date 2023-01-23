@@ -1,72 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_two.c                                         :+:      :+:    :+:   */
+/*   algo_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/23 14:52:04 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/23 17:33:17 by mstiedl          ###   ########.fr       */
+/*   Created: 2023/01/18 10:02:24 by mstiedl           #+#    #+#             */
+/*   Updated: 2023/01/22 14:18:37 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	put_back(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*b_last;
-	t_list	*a_last;
+void	ft_search(t_list **stack_a, t_list **stack_b);
+int     search_pos(t_list **stack_a, t_list **stack_b, int len, int last);
+void	check_rotate(t_list **stack_a, t_list **stack_b);
+void	make_end(t_list **stack_a, t_list **stack_b);
 
-	b_last = ft_lstlast(*stack_b);
-	a_last = ft_lstlast(*stack_a);
-	if ((*stack_a)->pos - (*stack_b)->pos == 1 || b_perfect(*stack_b) == 0)
-	{	
-		while ((*stack_b)->next && (*stack_b)->pos - (*stack_b)->next->pos == 1)
-			ft_push(stack_b, stack_a, 4);
-		ft_push(stack_b, stack_a, 4);
-	}
-	else if ((*stack_a)->pos - (*stack_b)->pos == -1)
-	{
-		ft_push(stack_b, stack_a, 4);
-		ft_swap(*stack_a, *stack_b, 1);
-	}
-	else if ((*stack_a)->pos - b_last->pos == -1)
-	{
-		ft_rotate(stack_a, stack_b, 10);
-		ft_push(stack_b, stack_a, 4);
-		ft_swap(*stack_a, *stack_b, 1);
-	}
-	else
-		put_back_2(stack_a, stack_b, b_last->pos, a_last->pos);
-}
-
-void	put_back_2(t_list **stack_a, t_list **stack_b, int b_last, int a_last)
+void	check_rotate(t_list **stack_a, t_list **stack_b)
 {
-	if ((*stack_a)->pos - b_last == 1)
+	int	front;
+	int	back;
+
+	front = perfect_order(*stack_a);
+	back = perfect_order_rev(*stack_a);
+	if (front > back)
 	{
-		ft_rotate(stack_a, stack_b, 10);
-		ft_push(stack_b, stack_a, 4);
+		while (back--)
+			execute_a(stack_a, stack_b, 9);
 	}
-	else if (a_last - (*stack_b)->pos == -1)
+	else // front <= back
 	{
-		ft_push(stack_b, stack_a, 4);
-		ft_rotate(stack_a, stack_b, 6);
+		while (front--)
+			execute_a(stack_a, stack_b, 6);	
 	}
-	else if (a_last - b_last == 1)
-	{
-		ft_rotate(stack_a, stack_b, 11);
-		ft_push(stack_b, stack_a, 4);
-		ft_rotate(stack_a, stack_b, 6);
-		ft_rotate(stack_a, stack_b, 6);
-	}
-	else if (a_last - b_last == -1)
-	{
-		ft_rotate(stack_a, stack_b, 10);
-		ft_push(stack_b, stack_a, 4);
-		ft_rotate(stack_a, stack_b, 6);
-	}
-	else
-		ft_search(stack_a, stack_b);
+	// check if the -- is in correct position 
 }
 
 void	ft_search(t_list **stack_a, t_list **stack_b)
@@ -93,19 +61,20 @@ void	ft_search(t_list **stack_a, t_list **stack_b)
 			ft_rotate(stack_a, stack_b, 7);
 		ft_push(stack_b, stack_a, 4);
 	}	
-	if ((*stack_a)->pos - last->pos == 1)
-		check_rotate(stack_a, stack_b);
+	// else find beginning!!
 }
 
 int	search_pos(t_list **stack_a, t_list **stack_b, int len, int last)
-{
+{ // maybe this shit is too much
 	t_list	*temp;
-	int		front;
+	int 	front;
 	int		back;
 	int		found;
-
+	
 	temp = *stack_b;
-	found = 0;
+	front = 0;
+	back = 0;
+	found = 0; // check if 1 or 0 is better because can be segfault going past list
 	while (found != len)
 	{
 		if (last - temp->pos == -1)
@@ -113,7 +82,7 @@ int	search_pos(t_list **stack_a, t_list **stack_b, int len, int last)
 		if ((*stack_a)->pos - temp->pos == 1)
 			front = found;
 		found++;
-		temp = temp->next;
+		temp = temp->next;	
 	}
 	if (front > (len / 2) && front != 0)
 		front = front - len;
@@ -126,10 +95,37 @@ int	search_pos(t_list **stack_a, t_list **stack_b, int len, int last)
 	return (calculate_min(front, back));
 }
 
+
+void	make_end(t_list **stack_a, t_list **stack_b) // this is to check if anything can be added to the end of a while rotating b
+{
+	t_list	*last;
+	t_list	*b_last;
+
+	last = ft_lstlast(*stack_a);
+	b_last = ft_lstlast(*stack_b);
+	while ((*stack_b)->next && (*stack_b)->pos - last->pos == 1)
+	{
+		ft_push(stack_b, stack_a, 4);
+		ft_rotate(stack_a, stack_b, 6);
+		last = ft_lstlast(*stack_a);
+	}
+	while ((*stack_b)->next && b_last->pos - last->pos == 1)
+	{ // can try combine these two to make sorter
+		ft_rotate(stack_a, stack_b, 10);
+		ft_push(stack_b, stack_a, 4);
+		ft_rotate(stack_a, stack_b, 6);
+		last = ft_lstlast(*stack_a);
+		// b_last = ft_lstlast(*stack_b);
+	}
+	// while (*stack_b && (*stack_b)->pos - (*stack_a)->pos == -1 \
+	// && (*stack_b)->pos - last->pos == 1)
+	// 	put_back(stack_a, stack_b);	
+}
+
 int	calculate_min(int front, int back)
 {
-	int	front_op;
-	int	back_op;
+	int front_op;
+	int back_op;
 
 	front_op = front * -1;
 	back_op = back * -1;
@@ -141,7 +137,7 @@ int	calculate_min(int front, int back)
 	{
 		if (front_op <= back)
 			return (front);
-		return (back);
+		return (back);	
 	}
 	else if (front > 0 && back < 0)
 	{
@@ -153,4 +149,17 @@ int	calculate_min(int front, int back)
 		return (front);
 	else
 		return (back);
+}
+
+int	to_stop(t_list *stack_a, int divide)
+{
+	while (stack_a->next)
+	{
+		if (stack_a->pos <= divide)
+			return (1);
+		stack_a = stack_a->next;
+	}
+	if (stack_a->pos < divide)
+		return (1);
+	return (0);
 }
