@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:17:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 12:03:45 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:28:43 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	last_to_b(t_list **stack_a, t_list **stack_b, int front, int back)
 
 	last = ft_lstlast(*stack_a);
 	if (!*stack_b)
-		return ;
+		no_b(stack_a, stack_b, front, back);
 	else if ((*stack_a)->pos <= front && last->pos <= front \
 	&& (*stack_a)->pos < last->pos)
 		return ;
@@ -58,8 +58,6 @@ void	check_options(t_list **stack_a, t_list **stack_b, int front, int back)
 	t_list	*last;
 
 	last = ft_lstlast(*stack_a);
-	if (last->pos <= front || last->pos >= back)
-		last_to_b(stack_a, stack_b, front, back);
 	if (!*stack_b)
 		no_b(stack_a, stack_b, front, back);
 	else if (last->pos - (*stack_b)->pos == 1)
@@ -79,6 +77,8 @@ void	check_options(t_list **stack_a, t_list **stack_b, int front, int back)
 		else
 			ft_push(stack_a, stack_b, 5);
 	}
+	else if (last->pos <= front || last->pos >= back)
+		last_to_b(stack_a, stack_b, front, back);
 }
 
 int	split_stack(t_list **stack_a, t_list **stack_b, int divide, int len)

@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 18:09:51 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 12:04:48 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:37:43 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,32 +69,6 @@ int	ft_compare(t_list *list)
 	return (1);
 }
 
-int	ft_print_stack(t_list *stack_a, t_list *stack_b)
-{
-	if (!stack_a)
-		return (0);
-	ft_printf("---------\nstack a:\n---------\n");
-	while (stack_a->next)
-	{
-		ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
-		stack_a = stack_a->next;
-	}
-	ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
-	ft_printf("---------\n");
-	ft_printf("stack\tposition\n\n");
-	if (!stack_b)
-		return (0);
-	ft_printf("---------\nstack b:\n---------\n");
-	while (stack_b->next)
-	{
-		ft_printf("%i\n", stack_b->content);
-		stack_b = stack_b->next;
-	}
-	ft_printf("%i\n", stack_b->content);
-	ft_printf("---------\n\n");
-	return (1);
-}
-
 int	main(int ac, char **av)
 {
 	t_list	*stack_a;
@@ -121,3 +95,29 @@ int	main(int ac, char **av)
 	}
 	return (0);
 }
+
+/* int	ft_print_stack(t_list *stack_a, t_list *stack_b)
+{
+	if (!stack_a)
+		return (0);
+	ft_printf("---------\nstack a:\n---------\n");
+	while (stack_a->next)
+	{
+		ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
+		stack_a = stack_a->next;
+	}
+	ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
+	ft_printf("---------\n");
+	ft_printf("stack\tposition\n\n");
+	if (!stack_b)
+		return (0);
+	ft_printf("---------\nstack b:\n---------\n");
+	while (stack_b->next)
+	{
+		ft_printf("%i\n", stack_b->content);
+		stack_b = stack_b->next;
+	}
+	ft_printf("%i\n", stack_b->content);
+	ft_printf("---------\n\n");
+	return (1);
+} */

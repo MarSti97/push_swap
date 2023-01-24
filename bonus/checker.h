@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:01:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 11:07:01 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:56:33 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include "../push_swap.h"
 # include "./get_next_line/get_next_line.h"
 
-void    get_moves(t_list **stack_a, t_list **stack_b);
-void    do_move(t_list **stack_a, t_list **stack_b, char *str);
-void    do_move_two(t_list **stack_a, t_list **stack_b, char *str);
+void	get_moves(t_list **stack_a, t_list **stack_b);
+void	do_move(t_list **stack_a, t_list **stack_b, char *str);
+void	do_move_two(t_list **stack_a, t_list **stack_b, char *str);
 // bonus moves
 void	push_bonus(t_list **from, t_list **to);
 void	make_rotate(t_list **stack, int arg);

@@ -1,5 +1,5 @@
 SRCS = push_swap.c moves.c checkers.c list_func.c writing.c algo.c algo_tools.c \
-ft_atoi.c algo_two.c ft_printf.c ft_put.c
+ft_atoi.c algo_two.c
 BONUS = ./bonus/checker.c ./bonus/checker_tools.c \
 ./bonus/get_next_line/get_next_line.c ./bonus/get_next_line/get_next_line_utils.c \
 ./bonus/bonus_moves.c checkers.c list_func.c ft_atoi.c
@@ -21,6 +21,7 @@ $(NAME) : $(SRCS)
 
 bonus : $(BONUS)
 	@cc $(FLAGS) $(BONUS) -o $(BONUS_NAME)
+	@echo "$(GREEN)---- Checker has been made ----$(END)"
 
 clean :
 	@$(RM) $(NAME)

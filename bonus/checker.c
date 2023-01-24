@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:13:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 11:16:39 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/24 13:01:42 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,64 +39,62 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-void    get_moves(t_list **stack_a, t_list **stack_b)
+void	get_moves(t_list **stack_a, t_list **stack_b)
 {
-    char    *str;
+	char	*str;
 
-    str = get_next_line(STDIN_FILENO);
-    while (str)
-    {
-        do_move(stack_a, stack_b, str);
-		free (str);
-        str = get_next_line(STDIN_FILENO);
-    }
-    if (perfect_order(*stack_a) == 0 && !*stack_b)
-        write(1, "OK\n", 3);
-    if (perfect_order(*stack_a) != 0 || *stack_b)
+	str = get_next_line(STDIN_FILENO);
+	while (str)
 	{
-        write(1, "KO\n", 3);
+		do_move(stack_a, stack_b, str);
+		free (str);
+		str = get_next_line(STDIN_FILENO);
+	}
+	if (perfect_order(*stack_a) == 0 && !*stack_b)
+		write(1, "OK\n", 3);
+	if (perfect_order(*stack_a) != 0 || *stack_b)
+	{
+		write(1, "KO\n", 3);
 	}
 }
 
-void    do_move(t_list **stack_a, t_list **stack_b, char *str)
+void	do_move(t_list **stack_a, t_list **stack_b, char *str)
 {
-    if (ft_strncmp(str, "sa\n", 5) == 0)
-        make_swap(*stack_a);
-    else if (ft_strncmp(str, "sb\n", 5) == 0)
-        make_swap(*stack_b);
-    else if (ft_strncmp(str, "ss\n", 5) == 0)
-    {
-        make_swap(*stack_a);
-        make_swap(*stack_b);
-    }
-    else if (ft_strncmp(str, "pa\n", 5) == 0)
-        push_bonus(stack_b, stack_a);
-    else if (ft_strncmp(str, "pb\n", 5) == 0)
-        push_bonus(stack_a, stack_b);
-    else if (ft_strncmp(str, "ra\n", 5) == 0)
+	if (ft_strncmp(str, "sa\n", 5) == 0)
+		make_swap(*stack_a);
+	else if (ft_strncmp(str, "sb\n", 5) == 0)
+		make_swap(*stack_b);
+	else if (ft_strncmp(str, "ss\n", 5) == 0)
+	{
+		make_swap(*stack_a);
+		make_swap(*stack_b);
+	}
+	else if (ft_strncmp(str, "pa\n", 5) == 0)
+		push_bonus(stack_b, stack_a);
+	else if (ft_strncmp(str, "pb\n", 5) == 0)
+		push_bonus(stack_a, stack_b);
+	else if (ft_strncmp(str, "ra\n", 5) == 0)
 		make_rotate(stack_a, 1);
-    else if (ft_strncmp(str, "rb\n", 5) == 0)
+	else if (ft_strncmp(str, "rb\n", 5) == 0)
 		make_rotate(stack_b, 1);
-    else if (ft_strncmp(str, "rr\n", 5) == 0)
-    {
-        make_rotate(stack_a, 1);
+	else if (ft_strncmp(str, "rr\n", 5) == 0)
+	{
+		make_rotate(stack_a, 1);
 		make_rotate(stack_b, 1);
-    }
-    else 
-        do_move_two(stack_a, stack_b, str);
+	}
+	else
+		do_move_two(stack_a, stack_b, str);
 }
 
-void    do_move_two(t_list **stack_a, t_list **stack_b, char *str)
+void	do_move_two(t_list **stack_a, t_list **stack_b, char *str)
 {
-    if (ft_strncmp(str, "rra\n", 5) == 0)
+	if (ft_strncmp(str, "rra\n", 5) == 0)
 		make_rotate(stack_a, -1);
-    else if (ft_strncmp(str, "rrb\n", 5) == 0)
+	else if (ft_strncmp(str, "rrb\n", 5) == 0)
 		make_rotate(stack_b, -1);
-    else if (ft_strncmp(str, "rrr\n", 5) == 0)
-    {
-    	make_rotate(stack_a, -1);
+	else if (ft_strncmp(str, "rrr\n", 5) == 0)
+	{
+		make_rotate(stack_a, -1);
 		make_rotate(stack_b, -1);
-    }
+	}
 }
-
-

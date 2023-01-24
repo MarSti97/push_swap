@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 12:05:01 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/01/24 12:37:16 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,5 @@ int		ft_atoi(const char *nptr);
 long	ft_atol(const char *nptr);
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
-// Delete later
-int		ft_print_stack(t_list *stack_a, t_list *stack_b);
-int		ft_printf(const char *input, ...);
-int		ft_putchar_fd(char c, int fd);
-int		ft_putstr_fd(char *str, int fd);
-int		ft_putnbr_fd(int nb, int fd);
+
+#endif
