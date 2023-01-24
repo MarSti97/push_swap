@@ -1,6 +1,11 @@
-SRCS = push_swap.c altering.c checker.c list_func.c rotating.c algo.c ./libft/libft.a
+SRCS = push_swap.c moves.c checkers.c list_func.c writing.c algo.c algo_tools.c \
+ft_atoi.c algo_two.c ft_printf.c ft_put.c
+BONUS = ./bonus/checker.c ./bonus/checker_tools.c \
+./bonus/get_next_line/get_next_line.c ./bonus/get_next_line/get_next_line_utils.c \
+./bonus/bonus_moves.c checkers.c list_func.c ft_atoi.c
 FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 NAME = push_swap
+BONUS_NAME = checker
 RM = rm -f
 
 #Colors
@@ -12,16 +17,17 @@ all : $(NAME)
 	@echo "$(GREEN)---- Successful Compile ----$(END)"
 
 $(NAME) : $(SRCS)
-	@cc $(FLAGS) $(SRCS) -I libft -o $(NAME) 
+	@cc $(FLAGS) $(SRCS) -o $(NAME) 
+
+bonus : $(BONUS)
+	@cc $(FLAGS) $(BONUS) -o $(BONUS_NAME)
 
 clean :
-	@$(RM)
+	@$(RM) $(NAME)
 	@echo "$(RED)---- Cleaned ----$(END)"
 
 fclean : clean 
-	@$(RM) $(NAME)
+	@$(RM) $(BONUS_NAME)
 	@echo "$(RED)---- All ----$(END)"
 
 re : fclean all
-
-.PHONY : all fclean clean re

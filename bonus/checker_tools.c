@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/28 18:09:51 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 12:04:48 by mstiedl          ###   ########.fr       */
+/*   Created: 2023/01/24 09:25:47 by mstiedl           #+#    #+#             */
+/*   Updated: 2023/01/24 09:54:51 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
+
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (str1[i] && i < n - 1)
+	{
+		if (str1[i] != str2[i])
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+		i++;
+	}
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+}
 
 void	ft_make_list(char **av, t_list **head)
 {
@@ -67,57 +83,4 @@ int	ft_compare(t_list *list)
 			return (0);
 	}
 	return (1);
-}
-
-int	ft_print_stack(t_list *stack_a, t_list *stack_b)
-{
-	if (!stack_a)
-		return (0);
-	ft_printf("---------\nstack a:\n---------\n");
-	while (stack_a->next)
-	{
-		ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
-		stack_a = stack_a->next;
-	}
-	ft_printf("%i\t%i\n", stack_a->content, stack_a->pos);
-	ft_printf("---------\n");
-	ft_printf("stack\tposition\n\n");
-	if (!stack_b)
-		return (0);
-	ft_printf("---------\nstack b:\n---------\n");
-	while (stack_b->next)
-	{
-		ft_printf("%i\n", stack_b->content);
-		stack_b = stack_b->next;
-	}
-	ft_printf("%i\n", stack_b->content);
-	ft_printf("---------\n\n");
-	return (1);
-}
-
-int	main(int ac, char **av)
-{
-	t_list	*stack_a;
-	t_list	*stack_b;
-
-	stack_a = NULL;
-	stack_b = NULL;
-	if (ac > 1)
-	{	
-		if (check_args(av) != 0)
-		{
-			ft_make_list(av, &stack_a);
-			if (ft_compare(stack_a) == 0)
-			{
-				free_list(stack_a, 1);
-				return (0);
-			}
-		}
-		else
-			return (0);
-		give_position(stack_a);
-		sort(&stack_a, &stack_b);
-		free_list(stack_a, 0);
-	}
-	return (0);
 }
