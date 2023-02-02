@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:01:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 12:56:33 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:22:52 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@ void	free_list(t_list *lst, int error);
 int		ft_compare(t_list *list);
 int		check_args(char **av);
 int		perfect_order(t_list *stack);
-void	ft_listadd_back(t_list **lst, t_list *new);
-void	ft_listadd_front(t_list **lst, t_list *new);
 
 #endif

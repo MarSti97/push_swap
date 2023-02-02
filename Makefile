@@ -1,5 +1,5 @@
 SRCS = push_swap.c moves.c checkers.c list_func.c writing.c algo.c algo_tools.c \
-ft_atoi.c algo_two.c
+ft_atoi.c algo_back.c algo_back_tools.c
 BONUS = ./bonus/checker.c ./bonus/checker_tools.c \
 ./bonus/get_next_line/get_next_line.c ./bonus/get_next_line/get_next_line_utils.c \
 ./bonus/bonus_moves.c checkers.c list_func.c ft_atoi.c
@@ -14,14 +14,14 @@ RED=\033[0;31m
 END=\033[0m
 
 all : $(NAME)
-	@echo "$(GREEN)---- Successful Compile ----$(END)"
 
 $(NAME) : $(SRCS)
-	@cc $(FLAGS) $(SRCS) -o $(NAME) 
+	@cc $(FLAGS) $(SRCS) -o $(NAME)
+	@echo "$(GREEN)---- Successful Compile ----$(END)"
 
 bonus : $(BONUS)
 	@cc $(FLAGS) $(BONUS) -o $(BONUS_NAME)
-	@echo "$(GREEN)---- Checker has been made ----$(END)"
+	@echo "$(GREEN)---- Checker made ----$(END)"
 
 clean :
 	@$(RM) $(NAME)
@@ -32,3 +32,5 @@ fclean : clean
 	@echo "$(RED)---- All ----$(END)"
 
 re : fclean all
+
+.PHONY : all fclean clean re

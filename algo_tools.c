@@ -6,28 +6,28 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:24:39 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/23 16:55:13 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:03:22 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	to_stop(t_list *stack_a, int front, int back)
+int	to_stop(t_list *stack_a, int divide)
 {
 	while (stack_a->next)
 	{
-		if (stack_a->pos <= front || stack_a->pos >= back)
+		if (stack_a->pos <= divide)
 			return (1);
 		stack_a = stack_a->next;
 	}
-	if (stack_a->pos <= front || stack_a->pos >= back)
+	if (stack_a->pos <= divide)
 		return (1);
 	return (0);
 }
 
 int	how_to_divide(int len, int full, int time)
 {
-	static int	divide;
+	int	divide;
 
 	if (time == 1)
 	{
@@ -39,9 +39,9 @@ int	how_to_divide(int len, int full, int time)
 	else
 	{
 		if (len > 100)
-			divide += (full / 10);
+			divide = (full / 10);
 		else
-			divide += (len / 2);
+			divide = (len / 2);
 	}
 	return (divide);
 }
@@ -65,12 +65,12 @@ void	check_rotate(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-void	no_b(t_list **stack_a, t_list **stack_b, int front, int back)
+void	no_b(t_list **stack_a, t_list **stack_b, int front)
 {
 	t_list	*last;
 
 	last = ft_lstlast(*stack_a);
-	if (last->pos >= back || last->pos <= front)
+	if (last->pos <= front)
 	{
 		ft_rotate(stack_a, stack_b, 9);
 		ft_push(stack_a, stack_b, 5);
@@ -84,10 +84,7 @@ void	three_or_less(t_list **stack_a, t_list **stack_b, int len)
 	if ((*stack_a)->next && (*stack_a)->pos - (*stack_a)->next->pos == 1)
 		ft_swap(*stack_a, *stack_b, 1);
 	else if (len == 2)
-	{
 		ft_push(stack_a, stack_b, 5);
-		ft_search(stack_a, stack_b);
-	}
 	else if ((*stack_a)->pos - (*stack_a)->next->next->pos == -1)
 		ft_swap(*stack_a, *stack_b, 1);
 	else if ((*stack_a)->next && (*stack_a)->pos - (*stack_a)->next->pos == -1)

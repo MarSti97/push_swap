@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:29:04 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 10:53:26 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:12:00 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,27 +96,3 @@ int	checker(char *str)
 	}
 	return (0);
 }
-
-/* int main()
-{	
-	int fd = open("test.txt", O_RDONLY);
-	char *res = get_next_line(fd);
-	printf("line 1: %s$", res);
-	free (res);
-	char *res2 = get_next_line(fd);
-	printf("line 2: %s$", res2);
-	free (res2);
-	char *res3 = get_next_line(fd);
-	printf("line 3: %s$", res3);
-	free (res3);
-	char *res4 = get_next_line(fd);
-	printf("line 4: %s$", res4);
-	free (res4);
-	char *res5 = get_next_line(fd);
-	printf("line 5: %s$", res5);
-	free (res5);
-	char *res6 = get_next_line(fd);
-	printf("line 6: %s$", res6);
-	free (res6);
-	close(fd);
-} */

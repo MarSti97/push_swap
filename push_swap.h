@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:18:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/24 12:37:16 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:10:38 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,25 @@ typedef struct s_list
 // Algorithm = algo
 void	sort(t_list **stack_a, t_list **stack_b);
 int		split_stack(t_list **stack_a, t_list **stack_b, int divide, int len);
-void	check_options(t_list **stack_a, t_list **stack_b, int front, int back);
-void	last_to_b(t_list **stack_a, t_list **stack_b, int front, int back);
-void	keep_a(t_list **stack_a, t_list **stack_b, int front, int back);
-// Algorithm = algo_two
+void	check_options(t_list **stack_a, t_list **stack_b, int front, int half);
+void	last_to_b(t_list **stack_a, t_list **stack_b, int front, int half);
+void	keep_a(t_list **stack_a, t_list **stack_b, int front);
+// Algorithm == algo_back
 void	put_back(t_list **stack_a, t_list **stack_b);
-void	put_back_2(t_list **stack_a, t_list **stack_b, int b_last, int a_last);
+int		check_first(t_list **stack_a, t_list **stack_b, int second);
 void	ft_search(t_list **stack_a, t_list **stack_b);
-int		search_pos(t_list **stack_a, t_list **stack_b, int len, int last);
-int		calculate_min(int front, int back);
+void	ft_search_two(t_list **stack_a, t_list **stack_b, int to_do);
 // Algorithm = algo_tools
-int		to_stop(t_list *stack_a, int front, int back);
+int		to_stop(t_list *stack_a, int divide);
 int		how_to_divide(int len, int full, int time);
 void	check_rotate(t_list **stack_a, t_list **stack_b);
-void	no_b(t_list **stack_a, t_list **stack_b, int front, int back);
+void	no_b(t_list **stack_a, t_list **stack_b, int front);
 void	three_or_less(t_list **stack_a, t_list **stack_b, int len);
+// Algorithm = algo_back_tools
+int		find_pos(t_list *stack, int find);
+void	exec_rot(t_list **stack_a, t_list **stack_b);
+void	exec_rev_rot(t_list **stack_a, t_list **stack_b);
+int		check_fit(int smaller, int middle, int bigger);
 // Moves
 void	make_rotate(t_list **stack, int arg);
 void	make_swap(t_list *list);
