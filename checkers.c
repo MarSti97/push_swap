@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:18:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/01/23 16:56:25 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/03 09:52:06 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	perfect_order(t_list *stack)
 	int	i;
 
 	i = 0;
+	if (!stack)
+		return (1);
 	while (stack->next)
 	{
 		if (stack->pos - stack->next->pos != -1)

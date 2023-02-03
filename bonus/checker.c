@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:13:25 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/02/02 11:10:11 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/03 09:36:47 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@ int	main(int ac, char **av)
 		{
 			ft_make_list(av, &stack_a);
 			if (ft_compare(stack_a) == 0)
-			{
-				free_list(stack_a, 1);
-				return (0);
-			}
+				free_list_bonus(&stack_a, &stack_b, 1);
 		}
 		else
 			return (0);
 		give_position(stack_a);
 		get_moves(&stack_a, &stack_b);
-		free_list(stack_a, 0);
+		free_list_bonus(&stack_a, &stack_b, 0);
 	}
 	return (0);
 }
@@ -97,4 +94,6 @@ void	do_move_two(t_list **stack_a, t_list **stack_b, char *str)
 		make_rotate(stack_a, -1);
 		make_rotate(stack_b, -1);
 	}
+	else
+		free_list_bonus(stack_a, stack_b, 1);
 }

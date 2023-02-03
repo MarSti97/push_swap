@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 09:25:47 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/02/02 11:22:40 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/03 09:54:34 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,22 @@ void	ft_make_list(char **av, t_list **head)
 	}
 }
 
-void	free_list(t_list *lst, int error)
+void	free_list_bonus(t_list **stack_a, t_list **stack_b, int error)
 {
 	t_list	*temp;
 
-	if (lst)
+	if (error == 1)
+		write(2, "Error\n", 6);
+	while (*stack_a)
 	{
-		if (error == 1)
-			write(2, "Error\n", 6);
-		while (lst != NULL)
-		{
-			temp = lst;
-			lst = lst->next;
-			free (temp);
-		}
+		temp = *stack_a;
+		*stack_a = (*stack_a)->next;
+		free (temp);
 	}
+	if (*stack_b)
+		free_list_bonus(stack_b, stack_a, 0);
+	if (error == 1)
+		exit (1);
 }
 
 int	ft_compare(t_list *list)

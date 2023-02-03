@@ -6,7 +6,7 @@
 /*   By: mstiedl <mstiedl@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:01:14 by mstiedl           #+#    #+#             */
-/*   Updated: 2023/02/02 11:22:52 by mstiedl          ###   ########.fr       */
+/*   Updated: 2023/02/03 09:33:50 by mstiedl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 void	get_moves(t_list **stack_a, t_list **stack_b);
 void	do_move(t_list **stack_a, t_list **stack_b, char *str);
 void	do_move_two(t_list **stack_a, t_list **stack_b, char *str);
+void	free_list_bonus(t_list **stack_a, t_list **stack_b, int error);
 // bonus moves
 void	push_bonus(t_list **from, t_list **to);
 void	make_rotate(t_list **stack, int arg);
@@ -29,7 +30,6 @@ int		ft_atoi(const char *nptr);
 long	ft_atol(const char *nptr);
 // Push_swap
 void	ft_make_list(char **av, t_list **head);
-void	free_list(t_list *lst, int error);
 int		ft_compare(t_list *list);
 int		check_args(char **av);
 int		perfect_order(t_list *stack);
